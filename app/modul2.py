@@ -24,6 +24,7 @@ SELECT
 FROM ref_wilayah w
 WHERE w.kode_desa_kelurahan = %(kode_desa_kelurahan)s
 """
+JENIS_VALID = ("KDMP", "KKMP")
 
 # Field teks wajib dan panjang maksimumnya (sama dengan kolom di 001_schema.sql)
 FIELD_TEKS = {"kode_desa_kelurahan": 10, "nomor_induk_koperasi": 30, "nama_koperasi": 255, "jenis_koperasi": 10}
@@ -95,6 +96,24 @@ async def terima_kdkmp(request: Request):
             else:
                 terlihat.add(kode)
                 hidup3.append((nomor, baris))
+        
+        # Lapis 4 (K2-04): jenis_koperasi bernilai KDMP atau KKMP, dan seragam untuk semua baris
+        # yang ber-NIKOP sama dalam batch ini (keputusan D1)
+        per_nikop = {}
+        for nomor, baris in hidup3:
+            per_nikop.setdefault(baris["nomor_induk_koperasi"], []).append((nomor, baris))
+        hidup4 = []                 # lolos lapis 1 sampai 4; dipakai lapis 5 pada tahap berikutnya
+        for kelompok in per_nikop.values():
+            jenis_di_kelompok = {b["jenis_koperasi"] for _, b in kelompok}
+            for nomor, baris in kelompok:
+                if baris["jenis_koperasi"] not in JENIS_VALID:
+                    _tolak(galat, nomor, baris, "K2-04", "jenis_koperasi",
+                           f"jenis_koperasi '{baris['jenis_koperasi']}' harus KDMP atau KKMP")
+                elif len(jenis_di_kelompok) > 1:
+                    _tolak(galat, nomor, baris, "K2-04", "jenis_koperasi",
+                           f"jenis_koperasi tidak seragam untuk nomor_induk_koperasi {baris['nomor_induk_koperasi']}")
+                else:
+                    hidup4.append((nomor, baris))
 
         galat.sort(key=lambda g: g["baris"])
         nomor_ditolak = {g["baris"] for g in galat}
