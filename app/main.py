@@ -3,11 +3,13 @@ from fastapi import FastAPI
 
 import internal
 import modul1
+import modul2
 from db import koneksi
 from umum import jawab
 
 app = FastAPI(title="Purwarupa ICA Serasi")
 app.include_router(modul1.router)
+app.include_router(modul2.router)
 app.include_router(internal.router)
 # A menambah: import modul2, modul3 lalu app.include_router(...)
 
