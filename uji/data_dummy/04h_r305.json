@@ -1,0 +1,20 @@
+{
+ "rows": [
+  {
+   "uuid_reviu_bast": "22193b6c-5069-5d68-8b96-d16fc8b3cab3",
+   "nomor_induk_koperasi": "NIKOP-0031",
+   "nama_koperasi": "Koperasi Contoh 0031",
+   "jenis_koperasi": "KKMP",
+   "kode_kecamatan": "980201",
+   "kode_kabkota": "9802",
+   "kode_provinsi": "98",
+   "nomor_reviu_bast": "UJI/NIKOP-0031",
+   "tanggal_reviu_bast": "2026-08-15",
+   "jenis_reviu_bast": 1,
+   "nilai_reviu_bast": "3000000001.00",
+   "nilai_bast_bangunan_kdkmp": "1800000001.00",
+   "nilai_bast_sarana_prasarana_kdkmp": "900000000.00",
+   "nilai_bast_kendaraan_kdkmp": "300000000.00"
+  }
+ ]
+}

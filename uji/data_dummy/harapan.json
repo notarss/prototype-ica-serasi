@@ -1,0 +1,524 @@
+{
+ "versi": 1,
+ "catatan": "Jalankan langkah sesuai urutan pada basis data kosong. Baris yang tidak tercantum di 'ditolak' harus berstatus DITERIMA.",
+ "langkah": [
+  {
+   "id": "S01",
+   "judul": "Wilayah cacat: satu baris tanpa nama_kecamatan, seluruh batch ditolak",
+   "dataset": "ref_wilayah",
+   "endpoint": "/api/v1/ref-wilayah/bulk",
+   "berkas": "data_dummy/01a_ref_wilayah_cacat.json",
+   "harapan": {
+    "batch_ditolak": true,
+    "diterima": 0,
+    "ditolak": 130,
+    "baris_cacat": [
+     58
+    ],
+    "kode": "W1-01",
+    "total_tersimpan": 0
+   }
+  },
+  {
+   "id": "S02",
+   "judul": "Wilayah valid, 130 desa/kelurahan diterima",
+   "dataset": "ref_wilayah",
+   "endpoint": "/api/v1/ref-wilayah/bulk",
+   "berkas": "data_dummy/01b_ref_wilayah_valid.json",
+   "harapan": {
+    "batch_ditolak": false,
+    "diterima": 130,
+    "ditolak": 0,
+    "total_tersimpan": 130
+   }
+  },
+  {
+   "id": "S03",
+   "judul": "ref_kdkmp batch 1: 60 koperasi TUNGGAL",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/02a_kdkmp_batch1.json",
+   "harapan": {
+    "diterima": 60,
+    "ditolak": [],
+    "total_tersimpan": 60
+   }
+  },
+  {
+   "id": "S04",
+   "judul": "ref_kdkmp campuran: 20 baris valid (termasuk 8 koperasi BERSAMA) + 3 baris cacat. Menguji partial acceptance",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/02b_kdkmp_campuran.json",
+   "harapan": {
+    "diterima": 20,
+    "ditolak": [
+     {
+      "baris": "21",
+      "kode": "K2-01"
+     },
+     {
+      "baris": "22",
+      "kode": "K2-01"
+     },
+     {
+      "baris": "23",
+      "kode": "K2-02"
+     }
+    ],
+    "total_tersimpan": 80
+   }
+  },
+  {
+   "id": "S05",
+   "judul": "ref_kdkmp batch 3: kirim ulang utuh 40 baris, termasuk 3 baris yang sudah diperbaiki (resubmit)",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/02c_kdkmp_batch3_resubmit.json",
+   "harapan": {
+    "diterima": 40,
+    "ditolak": [],
+    "total_tersimpan": 120
+   }
+  },
+  {
+   "id": "S06",
+   "judul": "K2-01 aneka: nama kosong, struktur 3, porsi bukan angka, kode desa 12 karakter, porsi 100,5",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/03a_k201_aneka.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "K2-01"
+     },
+     {
+      "baris": "2",
+      "kode": "K2-01"
+     },
+     {
+      "baris": "3",
+      "kode": "K2-01"
+     },
+     {
+      "baris": "4",
+      "kode": "K2-01"
+     },
+     {
+      "baris": "5",
+      "kode": "K2-01"
+     }
+    ],
+    "total_tersimpan": 120
+   }
+  },
+  {
+   "id": "S07",
+   "judul": "Gagal ganda: kode desa tidak ada DAN porsi 0, harus K2-01 (lapis 1 lebih dulu dari lapis 2)",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/03b_gagal_ganda.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "K2-01"
+     }
+    ],
+    "total_tersimpan": 120
+   }
+  },
+  {
+   "id": "S08",
+   "judul": "K2-02: kode desa tidak ada di ref_wilayah",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/03c_k202.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "K2-02"
+     }
+    ],
+    "total_tersimpan": 120
+   }
+  },
+  {
+   "id": "S09",
+   "judul": "K2-03: desa sudah tersimpan dari batch 1",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/03d_k203_tersimpan.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "K2-03"
+     }
+    ],
+    "total_tersimpan": 120
+   }
+  },
+  {
+   "id": "S10",
+   "judul": "K2-04: jenis_koperasi bukan KDMP atau KKMP",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/03e_k204_nilai.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "K2-04"
+     }
+    ],
+    "total_tersimpan": 120
+   }
+  },
+  {
+   "id": "S11",
+   "judul": "K2-04: dua baris satu NIKOP BERSAMA dengan jenis berbeda, kedua baris ditolak",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/03f_k204_tidak_seragam.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "K2-04"
+     },
+     {
+      "baris": "2",
+      "kode": "K2-04"
+     }
+    ],
+    "total_tersimpan": 120
+   }
+  },
+  {
+   "id": "S12",
+   "judul": "K2-05: jumlah porsi 90 (50 + 40), kedua baris ditolak",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/03g_k205_90.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "K2-05"
+     },
+     {
+      "baris": "2",
+      "kode": "K2-05"
+     }
+    ],
+    "total_tersimpan": 120
+   }
+  },
+  {
+   "id": "S13",
+   "judul": "K2-05: jumlah porsi 99,999999, semua baris ditolak",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/03h_k205_kurang.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "K2-05"
+     },
+     {
+      "baris": "2",
+      "kode": "K2-05"
+     },
+     {
+      "baris": "3",
+      "kode": "K2-05"
+     }
+    ],
+    "total_tersimpan": 120
+   }
+  },
+  {
+   "id": "S14",
+   "judul": "K2-05: jumlah porsi 100,000001, semua baris ditolak",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/03i_k205_lebih.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "K2-05"
+     },
+     {
+      "baris": "2",
+      "kode": "K2-05"
+     },
+     {
+      "baris": "3",
+      "kode": "K2-05"
+     }
+    ],
+    "total_tersimpan": 120
+   }
+  },
+  {
+   "id": "S15",
+   "judul": "K2-05: TUNGGAL berporsi 60 (jumlah 60), ditolak",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/03j_k205_tunggal.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "K2-05"
+     }
+    ],
+    "total_tersimpan": 120
+   }
+  },
+  {
+   "id": "S16",
+   "judul": "Rambatan D10: satu dari tiga baris BERSAMA bermasalah (kode desa tidak ada), dua baris lain ikut K2-05",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/03k_rambatan.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "K2-05"
+     },
+     {
+      "baris": "2",
+      "kode": "K2-02"
+     },
+     {
+      "baris": "3",
+      "kode": "K2-05"
+     }
+    ],
+    "total_tersimpan": 120
+   }
+  },
+  {
+   "id": "S17",
+   "judul": "K2-03: duplikasi dalam satu batch. Baris pertama diterima, baris kedua (identik) ditolak. LANGKAH INI MENYIMPAN SATU BARIS",
+   "dataset": "ref_kdkmp",
+   "endpoint": "/api/v1/ref-kdkmp",
+   "berkas": "data_dummy/03l_k203_dalam_batch.json",
+   "harapan": {
+    "diterima": 1,
+    "ditolak": [
+     {
+      "baris": "2",
+      "kode": "K2-03"
+     }
+    ],
+    "total_tersimpan": 121
+   }
+  },
+  {
+   "id": "S18",
+   "judul": "reviu_BAST valid: 43 baris (30 TUNGGAL + 13 BERSAMA), memicu pembentukan komponen_aset_desa",
+   "dataset": "reviu_bast",
+   "endpoint": "/api/v1/reviu-bast",
+   "berkas": "data_dummy/04a_reviu_valid.json",
+   "harapan": {
+    "diterima": 43,
+    "ditolak": [],
+    "total_tersimpan": 43
+   }
+  },
+  {
+   "id": "S19",
+   "judul": "R3-01: nomor_reviu_bast kosong dan tanggal berformat salah",
+   "dataset": "reviu_bast",
+   "endpoint": "/api/v1/reviu-bast",
+   "berkas": "data_dummy/04b_r301.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "R3-01"
+     },
+     {
+      "baris": "2",
+      "kode": "R3-01"
+     }
+    ],
+    "total_tersimpan": 43
+   }
+  },
+  {
+   "id": "S20",
+   "judul": "R3-02: NIKOP tidak terdaftar di ref_kdkmp",
+   "dataset": "reviu_bast",
+   "endpoint": "/api/v1/reviu-bast",
+   "berkas": "data_dummy/04c_r302.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "R3-02"
+     }
+    ],
+    "total_tersimpan": 43
+   }
+  },
+  {
+   "id": "S21",
+   "judul": "R3-07: reviu kedua untuk NIKOP dan jenis yang sama (uuid baru)",
+   "dataset": "reviu_bast",
+   "endpoint": "/api/v1/reviu-bast",
+   "berkas": "data_dummy/04d_r307_pasangan.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "R3-07"
+     }
+    ],
+    "total_tersimpan": 43
+   }
+  },
+  {
+   "id": "S22",
+   "judul": "R3-07: kirim ulang reviu yang sama persis (append-only)",
+   "dataset": "reviu_bast",
+   "endpoint": "/api/v1/reviu-bast",
+   "berkas": "data_dummy/04e_r307_ulang.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "R3-07"
+     }
+    ],
+    "total_tersimpan": 43
+   }
+  },
+  {
+   "id": "S23",
+   "judul": "R3-03: kecamatan tidak sesuai dengan desa mana pun milik NIKOP",
+   "dataset": "reviu_bast",
+   "endpoint": "/api/v1/reviu-bast",
+   "berkas": "data_dummy/04f_r303.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "R3-03"
+     }
+    ],
+    "total_tersimpan": 43
+   }
+  },
+  {
+   "id": "S24",
+   "judul": "R3-04: jenis_koperasi tidak sesuai ref_kdkmp",
+   "dataset": "reviu_bast",
+   "endpoint": "/api/v1/reviu-bast",
+   "berkas": "data_dummy/04g_r304.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "R3-04"
+     }
+    ],
+    "total_tersimpan": 43
+   }
+  },
+  {
+   "id": "S25",
+   "judul": "R3-05: nilai Rp3.000.000.001,00, komponen dibuat menjumlah agar hanya plafon yang gagal",
+   "dataset": "reviu_bast",
+   "endpoint": "/api/v1/reviu-bast",
+   "berkas": "data_dummy/04h_r305.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "R3-05"
+     }
+    ],
+    "total_tersimpan": 43
+   }
+  },
+  {
+   "id": "S26",
+   "judul": "R3-06: tiga komponen menjumlah Rp999.999,00, bukan Rp1.000.000,00",
+   "dataset": "reviu_bast",
+   "endpoint": "/api/v1/reviu-bast",
+   "berkas": "data_dummy/04i_r306.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "R3-06"
+     }
+    ],
+    "total_tersimpan": 43
+   }
+  },
+  {
+   "id": "S27",
+   "judul": "Gagal ganda: plafon terlampaui DAN komponen tidak menjumlah, harus R3-05 (plafon lebih dulu)",
+   "dataset": "reviu_bast",
+   "endpoint": "/api/v1/reviu-bast",
+   "berkas": "data_dummy/04j_ganda_plafon.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "R3-05"
+     }
+    ],
+    "total_tersimpan": 43
+   }
+  },
+  {
+   "id": "S28",
+   "judul": "Gagal ganda: kecamatan salah DAN duplikat, harus R3-07 (duplikat lebih dulu dari wilayah)",
+   "dataset": "reviu_bast",
+   "endpoint": "/api/v1/reviu-bast",
+   "berkas": "data_dummy/04k_ganda_duplikat.json",
+   "harapan": {
+    "diterima": 0,
+    "ditolak": [
+     {
+      "baris": "1",
+      "kode": "R3-07"
+     }
+    ],
+    "total_tersimpan": 43
+   }
+  }
+ ],
+ "turunan": "data_dummy/harapan_turunan.json"
+}

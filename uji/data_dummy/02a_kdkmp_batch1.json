@@ -1,0 +1,484 @@
+{
+ "rows": [
+  {
+   "kode_desa_kelurahan": "9801010001",
+   "nomor_induk_koperasi": "NIKOP-0001",
+   "nama_koperasi": "Koperasi Contoh 0001",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801010002",
+   "nomor_induk_koperasi": "NIKOP-0002",
+   "nama_koperasi": "Koperasi Contoh 0002",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801010003",
+   "nomor_induk_koperasi": "NIKOP-0003",
+   "nama_koperasi": "Koperasi Contoh 0003",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801010004",
+   "nomor_induk_koperasi": "NIKOP-0004",
+   "nama_koperasi": "Koperasi Contoh 0004",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801010005",
+   "nomor_induk_koperasi": "NIKOP-0005",
+   "nama_koperasi": "Koperasi Contoh 0005",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801010006",
+   "nomor_induk_koperasi": "NIKOP-0006",
+   "nama_koperasi": "Koperasi Contoh 0006",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801010007",
+   "nomor_induk_koperasi": "NIKOP-0007",
+   "nama_koperasi": "Koperasi Contoh 0007",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801010008",
+   "nomor_induk_koperasi": "NIKOP-0008",
+   "nama_koperasi": "Koperasi Contoh 0008",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801010009",
+   "nomor_induk_koperasi": "NIKOP-0009",
+   "nama_koperasi": "Koperasi Contoh 0009",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801010010",
+   "nomor_induk_koperasi": "NIKOP-0010",
+   "nama_koperasi": "Koperasi Contoh 0010",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801020001",
+   "nomor_induk_koperasi": "NIKOP-0011",
+   "nama_koperasi": "Koperasi Contoh 0011",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801020002",
+   "nomor_induk_koperasi": "NIKOP-0012",
+   "nama_koperasi": "Koperasi Contoh 0012",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801020003",
+   "nomor_induk_koperasi": "NIKOP-0013",
+   "nama_koperasi": "Koperasi Contoh 0013",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801020004",
+   "nomor_induk_koperasi": "NIKOP-0014",
+   "nama_koperasi": "Koperasi Contoh 0014",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801020005",
+   "nomor_induk_koperasi": "NIKOP-0015",
+   "nama_koperasi": "Koperasi Contoh 0015",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801020006",
+   "nomor_induk_koperasi": "NIKOP-0016",
+   "nama_koperasi": "Koperasi Contoh 0016",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801020007",
+   "nomor_induk_koperasi": "NIKOP-0017",
+   "nama_koperasi": "Koperasi Contoh 0017",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801020008",
+   "nomor_induk_koperasi": "NIKOP-0018",
+   "nama_koperasi": "Koperasi Contoh 0018",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801020009",
+   "nomor_induk_koperasi": "NIKOP-0019",
+   "nama_koperasi": "Koperasi Contoh 0019",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801020010",
+   "nomor_induk_koperasi": "NIKOP-0020",
+   "nama_koperasi": "Koperasi Contoh 0020",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801030001",
+   "nomor_induk_koperasi": "NIKOP-0021",
+   "nama_koperasi": "Koperasi Contoh 0021",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801030002",
+   "nomor_induk_koperasi": "NIKOP-0022",
+   "nama_koperasi": "Koperasi Contoh 0022",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801030003",
+   "nomor_induk_koperasi": "NIKOP-0023",
+   "nama_koperasi": "Koperasi Contoh 0023",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801030004",
+   "nomor_induk_koperasi": "NIKOP-0024",
+   "nama_koperasi": "Koperasi Contoh 0024",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801030005",
+   "nomor_induk_koperasi": "NIKOP-0025",
+   "nama_koperasi": "Koperasi Contoh 0025",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801030006",
+   "nomor_induk_koperasi": "NIKOP-0026",
+   "nama_koperasi": "Koperasi Contoh 0026",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801030007",
+   "nomor_induk_koperasi": "NIKOP-0027",
+   "nama_koperasi": "Koperasi Contoh 0027",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801030008",
+   "nomor_induk_koperasi": "NIKOP-0028",
+   "nama_koperasi": "Koperasi Contoh 0028",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801030009",
+   "nomor_induk_koperasi": "NIKOP-0029",
+   "nama_koperasi": "Koperasi Contoh 0029",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9801030010",
+   "nomor_induk_koperasi": "NIKOP-0030",
+   "nama_koperasi": "Koperasi Contoh 0030",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802010001",
+   "nomor_induk_koperasi": "NIKOP-0031",
+   "nama_koperasi": "Koperasi Contoh 0031",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802010002",
+   "nomor_induk_koperasi": "NIKOP-0032",
+   "nama_koperasi": "Koperasi Contoh 0032",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802010003",
+   "nomor_induk_koperasi": "NIKOP-0033",
+   "nama_koperasi": "Koperasi Contoh 0033",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802010004",
+   "nomor_induk_koperasi": "NIKOP-0034",
+   "nama_koperasi": "Koperasi Contoh 0034",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802010005",
+   "nomor_induk_koperasi": "NIKOP-0035",
+   "nama_koperasi": "Koperasi Contoh 0035",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802010006",
+   "nomor_induk_koperasi": "NIKOP-0036",
+   "nama_koperasi": "Koperasi Contoh 0036",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802010007",
+   "nomor_induk_koperasi": "NIKOP-0037",
+   "nama_koperasi": "Koperasi Contoh 0037",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802010008",
+   "nomor_induk_koperasi": "NIKOP-0038",
+   "nama_koperasi": "Koperasi Contoh 0038",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802010009",
+   "nomor_induk_koperasi": "NIKOP-0039",
+   "nama_koperasi": "Koperasi Contoh 0039",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802010010",
+   "nomor_induk_koperasi": "NIKOP-0040",
+   "nama_koperasi": "Koperasi Contoh 0040",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802020001",
+   "nomor_induk_koperasi": "NIKOP-0041",
+   "nama_koperasi": "Koperasi Contoh 0041",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802020002",
+   "nomor_induk_koperasi": "NIKOP-0042",
+   "nama_koperasi": "Koperasi Contoh 0042",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802020003",
+   "nomor_induk_koperasi": "NIKOP-0043",
+   "nama_koperasi": "Koperasi Contoh 0043",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802020004",
+   "nomor_induk_koperasi": "NIKOP-0044",
+   "nama_koperasi": "Koperasi Contoh 0044",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802020005",
+   "nomor_induk_koperasi": "NIKOP-0045",
+   "nama_koperasi": "Koperasi Contoh 0045",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802020006",
+   "nomor_induk_koperasi": "NIKOP-0046",
+   "nama_koperasi": "Koperasi Contoh 0046",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802020007",
+   "nomor_induk_koperasi": "NIKOP-0047",
+   "nama_koperasi": "Koperasi Contoh 0047",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802020008",
+   "nomor_induk_koperasi": "NIKOP-0048",
+   "nama_koperasi": "Koperasi Contoh 0048",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802020009",
+   "nomor_induk_koperasi": "NIKOP-0049",
+   "nama_koperasi": "Koperasi Contoh 0049",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802020010",
+   "nomor_induk_koperasi": "NIKOP-0050",
+   "nama_koperasi": "Koperasi Contoh 0050",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802030001",
+   "nomor_induk_koperasi": "NIKOP-0051",
+   "nama_koperasi": "Koperasi Contoh 0051",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802030002",
+   "nomor_induk_koperasi": "NIKOP-0052",
+   "nama_koperasi": "Koperasi Contoh 0052",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802030003",
+   "nomor_induk_koperasi": "NIKOP-0053",
+   "nama_koperasi": "Koperasi Contoh 0053",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802030004",
+   "nomor_induk_koperasi": "NIKOP-0054",
+   "nama_koperasi": "Koperasi Contoh 0054",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802030005",
+   "nomor_induk_koperasi": "NIKOP-0055",
+   "nama_koperasi": "Koperasi Contoh 0055",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802030006",
+   "nomor_induk_koperasi": "NIKOP-0056",
+   "nama_koperasi": "Koperasi Contoh 0056",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802030007",
+   "nomor_induk_koperasi": "NIKOP-0057",
+   "nama_koperasi": "Koperasi Contoh 0057",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802030008",
+   "nomor_induk_koperasi": "NIKOP-0058",
+   "nama_koperasi": "Koperasi Contoh 0058",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802030009",
+   "nomor_induk_koperasi": "NIKOP-0059",
+   "nama_koperasi": "Koperasi Contoh 0059",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  },
+  {
+   "kode_desa_kelurahan": "9802030010",
+   "nomor_induk_koperasi": "NIKOP-0060",
+   "nama_koperasi": "Koperasi Contoh 0060",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KKMP"
+  }
+ ]
+}

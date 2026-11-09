@@ -1,0 +1,44 @@
+{
+ "rows": [
+  {
+   "kode_desa_kelurahan": "9902040001",
+   "nomor_induk_koperasi": "NIKOP-9101",
+   "nama_koperasi": "",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9902040002",
+   "nomor_induk_koperasi": "NIKOP-9102",
+   "nama_koperasi": "Koperasi Uji NIKOP-9102",
+   "struktur_kepemilikan": 3,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9902040003",
+   "nomor_induk_koperasi": "NIKOP-9103",
+   "nama_koperasi": "Koperasi Uji NIKOP-9103",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": "abc",
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "990204000199",
+   "nomor_induk_koperasi": "NIKOP-9104",
+   "nama_koperasi": "Koperasi Uji NIKOP-9104",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.0,
+   "jenis_koperasi": "KDMP"
+  },
+  {
+   "kode_desa_kelurahan": "9902040005",
+   "nomor_induk_koperasi": "NIKOP-9105",
+   "nama_koperasi": "Koperasi Uji NIKOP-9105",
+   "struktur_kepemilikan": 1,
+   "porsi_kepemilikan": 100.5,
+   "jenis_koperasi": "KDMP"
+  }
+ ]
+}

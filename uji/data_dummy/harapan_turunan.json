@@ -1,0 +1,688 @@
+{
+ "total_baris_komponen_aset_desa": 70,
+ "selisih_pembulatan_terbesar": "0.01",
+ "koperasi_tidak_bulat": [
+  "NIKOP-0061",
+  "NIKOP-0062"
+ ],
+ "per_nikop": {
+  "NIKOP-0001": {
+   "uuid_reviu_bast": "b11a4cb0-2275-5d7c-80d5-670a5af98844",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801010001": {
+     "nilai_reviu_bast_desa": "500000000.00",
+     "nilai_bast_bangunan_desa": "300000000.00",
+     "nilai_bast_sarana_prasarana_desa": "150000000.00",
+     "nilai_bast_kendaraan_desa": "50000000.00"
+    }
+   }
+  },
+  "NIKOP-0002": {
+   "uuid_reviu_bast": "3828728f-0f7e-5d69-95ba-d99b41c9d00b",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801010002": {
+     "nilai_reviu_bast_desa": "600000000.00",
+     "nilai_bast_bangunan_desa": "360000000.00",
+     "nilai_bast_sarana_prasarana_desa": "180000000.00",
+     "nilai_bast_kendaraan_desa": "60000000.00"
+    }
+   }
+  },
+  "NIKOP-0003": {
+   "uuid_reviu_bast": "0873124e-3431-5667-8b0d-5e6d2ecde089",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801010003": {
+     "nilai_reviu_bast_desa": "700000000.00",
+     "nilai_bast_bangunan_desa": "420000000.00",
+     "nilai_bast_sarana_prasarana_desa": "210000000.00",
+     "nilai_bast_kendaraan_desa": "70000000.00"
+    }
+   }
+  },
+  "NIKOP-0004": {
+   "uuid_reviu_bast": "d308ff56-a900-56b9-8f04-0a20ae68d8a3",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801010004": {
+     "nilai_reviu_bast_desa": "800000000.00",
+     "nilai_bast_bangunan_desa": "480000000.00",
+     "nilai_bast_sarana_prasarana_desa": "240000000.00",
+     "nilai_bast_kendaraan_desa": "80000000.00"
+    }
+   }
+  },
+  "NIKOP-0005": {
+   "uuid_reviu_bast": "efb3f9e5-f669-5a8e-bcd0-65e9e2fa219f",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801010005": {
+     "nilai_reviu_bast_desa": "900000000.00",
+     "nilai_bast_bangunan_desa": "540000000.00",
+     "nilai_bast_sarana_prasarana_desa": "270000000.00",
+     "nilai_bast_kendaraan_desa": "90000000.00"
+    }
+   }
+  },
+  "NIKOP-0006": {
+   "uuid_reviu_bast": "401a3ec7-a02d-552d-98ba-7d9a9726f747",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801010006": {
+     "nilai_reviu_bast_desa": "1000000000.00",
+     "nilai_bast_bangunan_desa": "600000000.00",
+     "nilai_bast_sarana_prasarana_desa": "300000000.00",
+     "nilai_bast_kendaraan_desa": "100000000.00"
+    }
+   }
+  },
+  "NIKOP-0007": {
+   "uuid_reviu_bast": "9c6e9394-f353-5777-b485-8a934ee176ba",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801010007": {
+     "nilai_reviu_bast_desa": "1100000000.00",
+     "nilai_bast_bangunan_desa": "660000000.00",
+     "nilai_bast_sarana_prasarana_desa": "330000000.00",
+     "nilai_bast_kendaraan_desa": "110000000.00"
+    }
+   }
+  },
+  "NIKOP-0008": {
+   "uuid_reviu_bast": "fbc7ff5b-5362-528d-b86a-21ec231f36ca",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801010008": {
+     "nilai_reviu_bast_desa": "1200000000.00",
+     "nilai_bast_bangunan_desa": "720000000.00",
+     "nilai_bast_sarana_prasarana_desa": "360000000.00",
+     "nilai_bast_kendaraan_desa": "120000000.00"
+    }
+   }
+  },
+  "NIKOP-0009": {
+   "uuid_reviu_bast": "d944396f-f977-5229-97ef-aa156a273c61",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801010009": {
+     "nilai_reviu_bast_desa": "1300000000.00",
+     "nilai_bast_bangunan_desa": "780000000.00",
+     "nilai_bast_sarana_prasarana_desa": "390000000.00",
+     "nilai_bast_kendaraan_desa": "130000000.00"
+    }
+   }
+  },
+  "NIKOP-0010": {
+   "uuid_reviu_bast": "e52c02bf-842d-5713-9024-d58096e35622",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801010010": {
+     "nilai_reviu_bast_desa": "1400000000.00",
+     "nilai_bast_bangunan_desa": "840000000.00",
+     "nilai_bast_sarana_prasarana_desa": "420000000.00",
+     "nilai_bast_kendaraan_desa": "140000000.00"
+    }
+   }
+  },
+  "NIKOP-0011": {
+   "uuid_reviu_bast": "0ae4c1ff-6e6a-5aa0-9ef7-c730d1b73690",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801020001": {
+     "nilai_reviu_bast_desa": "1500000000.00",
+     "nilai_bast_bangunan_desa": "900000000.00",
+     "nilai_bast_sarana_prasarana_desa": "450000000.00",
+     "nilai_bast_kendaraan_desa": "150000000.00"
+    }
+   }
+  },
+  "NIKOP-0012": {
+   "uuid_reviu_bast": "7fdbb236-8db8-54a3-a252-73849c3a6138",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801020002": {
+     "nilai_reviu_bast_desa": "1600000000.00",
+     "nilai_bast_bangunan_desa": "960000000.00",
+     "nilai_bast_sarana_prasarana_desa": "480000000.00",
+     "nilai_bast_kendaraan_desa": "160000000.00"
+    }
+   }
+  },
+  "NIKOP-0013": {
+   "uuid_reviu_bast": "ae6c13ae-d4f5-5ab4-971b-160109c3f5ab",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801020003": {
+     "nilai_reviu_bast_desa": "1700000000.00",
+     "nilai_bast_bangunan_desa": "1020000000.00",
+     "nilai_bast_sarana_prasarana_desa": "510000000.00",
+     "nilai_bast_kendaraan_desa": "170000000.00"
+    }
+   }
+  },
+  "NIKOP-0014": {
+   "uuid_reviu_bast": "eeb94213-69c5-5072-9cea-9414a4cbd109",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801020004": {
+     "nilai_reviu_bast_desa": "1800000000.00",
+     "nilai_bast_bangunan_desa": "1080000000.00",
+     "nilai_bast_sarana_prasarana_desa": "540000000.00",
+     "nilai_bast_kendaraan_desa": "180000000.00"
+    }
+   }
+  },
+  "NIKOP-0015": {
+   "uuid_reviu_bast": "7da53da8-b692-5946-8f92-f6ffa95d7b7c",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801020005": {
+     "nilai_reviu_bast_desa": "1900000000.00",
+     "nilai_bast_bangunan_desa": "1140000000.00",
+     "nilai_bast_sarana_prasarana_desa": "570000000.00",
+     "nilai_bast_kendaraan_desa": "190000000.00"
+    }
+   }
+  },
+  "NIKOP-0016": {
+   "uuid_reviu_bast": "51e49b09-2b97-5d65-b074-4339233add9a",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801020006": {
+     "nilai_reviu_bast_desa": "2000000000.00",
+     "nilai_bast_bangunan_desa": "1200000000.00",
+     "nilai_bast_sarana_prasarana_desa": "600000000.00",
+     "nilai_bast_kendaraan_desa": "200000000.00"
+    }
+   }
+  },
+  "NIKOP-0017": {
+   "uuid_reviu_bast": "0bf8b673-6ace-56c1-9c01-5af2dad11255",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801020007": {
+     "nilai_reviu_bast_desa": "2100000000.00",
+     "nilai_bast_bangunan_desa": "1260000000.00",
+     "nilai_bast_sarana_prasarana_desa": "630000000.00",
+     "nilai_bast_kendaraan_desa": "210000000.00"
+    }
+   }
+  },
+  "NIKOP-0018": {
+   "uuid_reviu_bast": "c25fdbcb-754a-521f-941c-acd4d5f1e28c",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801020008": {
+     "nilai_reviu_bast_desa": "2200000000.00",
+     "nilai_bast_bangunan_desa": "1320000000.00",
+     "nilai_bast_sarana_prasarana_desa": "660000000.00",
+     "nilai_bast_kendaraan_desa": "220000000.00"
+    }
+   }
+  },
+  "NIKOP-0019": {
+   "uuid_reviu_bast": "436317b4-9fc5-5ec4-90dd-58eafaf02cd3",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801020009": {
+     "nilai_reviu_bast_desa": "2300000000.00",
+     "nilai_bast_bangunan_desa": "1380000000.00",
+     "nilai_bast_sarana_prasarana_desa": "690000000.00",
+     "nilai_bast_kendaraan_desa": "230000000.00"
+    }
+   }
+  },
+  "NIKOP-0020": {
+   "uuid_reviu_bast": "80d41206-e7ee-5e7e-835a-3107d9e239af",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801020010": {
+     "nilai_reviu_bast_desa": "2400000000.00",
+     "nilai_bast_bangunan_desa": "1440000000.00",
+     "nilai_bast_sarana_prasarana_desa": "720000000.00",
+     "nilai_bast_kendaraan_desa": "240000000.00"
+    }
+   }
+  },
+  "NIKOP-0021": {
+   "uuid_reviu_bast": "ea28a80e-6ad8-5116-9a0b-f5fb9b2341d3",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801030001": {
+     "nilai_reviu_bast_desa": "2500000000.00",
+     "nilai_bast_bangunan_desa": "1500000000.00",
+     "nilai_bast_sarana_prasarana_desa": "750000000.00",
+     "nilai_bast_kendaraan_desa": "250000000.00"
+    }
+   }
+  },
+  "NIKOP-0022": {
+   "uuid_reviu_bast": "53faaaa0-5207-5eb5-a026-1a5249182260",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801030002": {
+     "nilai_reviu_bast_desa": "2600000000.00",
+     "nilai_bast_bangunan_desa": "1560000000.00",
+     "nilai_bast_sarana_prasarana_desa": "780000000.00",
+     "nilai_bast_kendaraan_desa": "260000000.00"
+    }
+   }
+  },
+  "NIKOP-0023": {
+   "uuid_reviu_bast": "3321ea4c-4755-5970-9aa1-bf5c2f2b6624",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801030003": {
+     "nilai_reviu_bast_desa": "2700000000.00",
+     "nilai_bast_bangunan_desa": "1620000000.00",
+     "nilai_bast_sarana_prasarana_desa": "810000000.00",
+     "nilai_bast_kendaraan_desa": "270000000.00"
+    }
+   }
+  },
+  "NIKOP-0024": {
+   "uuid_reviu_bast": "9dbd71d2-7bb9-53fe-9546-b148090802f9",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801030004": {
+     "nilai_reviu_bast_desa": "2800000000.00",
+     "nilai_bast_bangunan_desa": "1680000000.00",
+     "nilai_bast_sarana_prasarana_desa": "840000000.00",
+     "nilai_bast_kendaraan_desa": "280000000.00"
+    }
+   }
+  },
+  "NIKOP-0025": {
+   "uuid_reviu_bast": "6cd14a44-0433-5d48-9978-861f0190f094",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801030005": {
+     "nilai_reviu_bast_desa": "2900000000.00",
+     "nilai_bast_bangunan_desa": "1740000000.00",
+     "nilai_bast_sarana_prasarana_desa": "870000000.00",
+     "nilai_bast_kendaraan_desa": "290000000.00"
+    }
+   }
+  },
+  "NIKOP-0026": {
+   "uuid_reviu_bast": "fa960321-f815-5b95-abd0-d6fe3c39a084",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801030006": {
+     "nilai_reviu_bast_desa": "3000000000.00",
+     "nilai_bast_bangunan_desa": "1800000000.00",
+     "nilai_bast_sarana_prasarana_desa": "900000000.00",
+     "nilai_bast_kendaraan_desa": "300000000.00"
+    }
+   }
+  },
+  "NIKOP-0027": {
+   "uuid_reviu_bast": "bcc317ac-525c-5df0-954e-179d95a3cf03",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801030007": {
+     "nilai_reviu_bast_desa": "500000000.00",
+     "nilai_bast_bangunan_desa": "300000000.00",
+     "nilai_bast_sarana_prasarana_desa": "150000000.00",
+     "nilai_bast_kendaraan_desa": "50000000.00"
+    }
+   }
+  },
+  "NIKOP-0028": {
+   "uuid_reviu_bast": "b0f27341-be52-5776-a62d-bd9645d048ee",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801030008": {
+     "nilai_reviu_bast_desa": "600000000.00",
+     "nilai_bast_bangunan_desa": "360000000.00",
+     "nilai_bast_sarana_prasarana_desa": "180000000.00",
+     "nilai_bast_kendaraan_desa": "60000000.00"
+    }
+   }
+  },
+  "NIKOP-0029": {
+   "uuid_reviu_bast": "420cdbbe-5716-5624-869d-5684bda045d5",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801030009": {
+     "nilai_reviu_bast_desa": "700000000.00",
+     "nilai_bast_bangunan_desa": "420000000.00",
+     "nilai_bast_sarana_prasarana_desa": "210000000.00",
+     "nilai_bast_kendaraan_desa": "70000000.00"
+    }
+   }
+  },
+  "NIKOP-0030": {
+   "uuid_reviu_bast": "b72f7125-1268-5a98-9367-05ee0f354725",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9801030010": {
+     "nilai_reviu_bast_desa": "800000000.00",
+     "nilai_bast_bangunan_desa": "480000000.00",
+     "nilai_bast_sarana_prasarana_desa": "240000000.00",
+     "nilai_bast_kendaraan_desa": "80000000.00"
+    }
+   }
+  },
+  "NIKOP-0061": {
+   "uuid_reviu_bast": "acc7a2b8-5c60-57df-96dc-f93e37705216",
+   "selisih_nilai_reviu": "0.01",
+   "desa": {
+    "9901010001": {
+     "nilai_reviu_bast_desa": "333333340.33",
+     "nilai_bast_bangunan_desa": "200000004.33",
+     "nilai_bast_sarana_prasarana_desa": "100000002.00",
+     "nilai_bast_kendaraan_desa": "33333334.00"
+    },
+    "9901010002": {
+     "nilai_reviu_bast_desa": "333333330.33",
+     "nilai_bast_bangunan_desa": "199999998.33",
+     "nilai_bast_sarana_prasarana_desa": "99999999.00",
+     "nilai_bast_kendaraan_desa": "33333333.00"
+    },
+    "9901010003": {
+     "nilai_reviu_bast_desa": "333333330.33",
+     "nilai_bast_bangunan_desa": "199999998.33",
+     "nilai_bast_sarana_prasarana_desa": "99999999.00",
+     "nilai_bast_kendaraan_desa": "33333333.00"
+    }
+   }
+  },
+  "NIKOP-0062": {
+   "uuid_reviu_bast": "80f655d4-65bf-5ea7-9a0d-01c365ff92d0",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9901010004": {
+     "nilai_reviu_bast_desa": "833333351.11",
+     "nilai_bast_bangunan_desa": "500000010.37",
+     "nilai_bast_sarana_prasarana_desa": "250000005.37",
+     "nilai_bast_kendaraan_desa": "83333335.37"
+    },
+    "9901010005": {
+     "nilai_reviu_bast_desa": "833333326.11",
+     "nilai_bast_bangunan_desa": "499999995.37",
+     "nilai_bast_sarana_prasarana_desa": "249999997.87",
+     "nilai_bast_kendaraan_desa": "83333332.87"
+    },
+    "9901010006": {
+     "nilai_reviu_bast_desa": "833333326.11",
+     "nilai_bast_bangunan_desa": "499999995.37",
+     "nilai_bast_sarana_prasarana_desa": "249999997.87",
+     "nilai_bast_kendaraan_desa": "83333332.87"
+    }
+   }
+  },
+  "NIKOP-0063": {
+   "uuid_reviu_bast": "2776c9e8-586f-5107-9e44-c7a8016c508d",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9901010007": {
+     "nilai_reviu_bast_desa": "366666674.00",
+     "nilai_bast_bangunan_desa": "220000004.40",
+     "nilai_bast_sarana_prasarana_desa": "110000002.20",
+     "nilai_bast_kendaraan_desa": "36666667.40"
+    },
+    "9901010008": {
+     "nilai_reviu_bast_desa": "366666663.00",
+     "nilai_bast_bangunan_desa": "219999997.80",
+     "nilai_bast_sarana_prasarana_desa": "109999998.90",
+     "nilai_bast_kendaraan_desa": "36666666.30"
+    },
+    "9901010009": {
+     "nilai_reviu_bast_desa": "366666663.00",
+     "nilai_bast_bangunan_desa": "219999997.80",
+     "nilai_bast_sarana_prasarana_desa": "109999998.90",
+     "nilai_bast_kendaraan_desa": "36666666.30"
+    }
+   }
+  },
+  "NIKOP-0064": {
+   "uuid_reviu_bast": "3d112a80-ae54-5a93-90cb-f29a77a65d90",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9901010010": {
+     "nilai_reviu_bast_desa": "400000008.00",
+     "nilai_bast_bangunan_desa": "240000004.80",
+     "nilai_bast_sarana_prasarana_desa": "120000002.40",
+     "nilai_bast_kendaraan_desa": "40000000.80"
+    },
+    "9901020001": {
+     "nilai_reviu_bast_desa": "399999996.00",
+     "nilai_bast_bangunan_desa": "239999997.60",
+     "nilai_bast_sarana_prasarana_desa": "119999998.80",
+     "nilai_bast_kendaraan_desa": "39999999.60"
+    },
+    "9901020002": {
+     "nilai_reviu_bast_desa": "399999996.00",
+     "nilai_bast_bangunan_desa": "239999997.60",
+     "nilai_bast_sarana_prasarana_desa": "119999998.80",
+     "nilai_bast_kendaraan_desa": "39999999.60"
+    }
+   }
+  },
+  "NIKOP-0065": {
+   "uuid_reviu_bast": "0190624b-e6a6-518b-a1cc-0d6525e01fc9",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9901020003": {
+     "nilai_reviu_bast_desa": "780000000.00",
+     "nilai_bast_bangunan_desa": "468000000.00",
+     "nilai_bast_sarana_prasarana_desa": "234000000.00",
+     "nilai_bast_kendaraan_desa": "78000000.00"
+    },
+    "9901020004": {
+     "nilai_reviu_bast_desa": "520000000.00",
+     "nilai_bast_bangunan_desa": "312000000.00",
+     "nilai_bast_sarana_prasarana_desa": "156000000.00",
+     "nilai_bast_kendaraan_desa": "52000000.00"
+    }
+   }
+  },
+  "NIKOP-0066": {
+   "uuid_reviu_bast": "85f11cad-da67-5cc9-8383-2b8191671f0e",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9901020005": {
+     "nilai_reviu_bast_desa": "840000000.00",
+     "nilai_bast_bangunan_desa": "504000000.00",
+     "nilai_bast_sarana_prasarana_desa": "252000000.00",
+     "nilai_bast_kendaraan_desa": "84000000.00"
+    },
+    "9901020006": {
+     "nilai_reviu_bast_desa": "560000000.00",
+     "nilai_bast_bangunan_desa": "336000000.00",
+     "nilai_bast_sarana_prasarana_desa": "168000000.00",
+     "nilai_bast_kendaraan_desa": "56000000.00"
+    }
+   }
+  },
+  "NIKOP-0067": {
+   "uuid_reviu_bast": "ce39fa7d-de7a-5428-be3a-7cb48cc80113",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9901020007": {
+     "nilai_reviu_bast_desa": "900000000.00",
+     "nilai_bast_bangunan_desa": "540000000.00",
+     "nilai_bast_sarana_prasarana_desa": "270000000.00",
+     "nilai_bast_kendaraan_desa": "90000000.00"
+    },
+    "9901020008": {
+     "nilai_reviu_bast_desa": "600000000.00",
+     "nilai_bast_bangunan_desa": "360000000.00",
+     "nilai_bast_sarana_prasarana_desa": "180000000.00",
+     "nilai_bast_kendaraan_desa": "60000000.00"
+    }
+   }
+  },
+  "NIKOP-0068": {
+   "uuid_reviu_bast": "4266b8fd-6dd2-538c-a5ab-39ea814e8b47",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9901020009": {
+     "nilai_reviu_bast_desa": "960000000.00",
+     "nilai_bast_bangunan_desa": "576000000.00",
+     "nilai_bast_sarana_prasarana_desa": "288000000.00",
+     "nilai_bast_kendaraan_desa": "96000000.00"
+    },
+    "9901020010": {
+     "nilai_reviu_bast_desa": "640000000.00",
+     "nilai_bast_bangunan_desa": "384000000.00",
+     "nilai_bast_sarana_prasarana_desa": "192000000.00",
+     "nilai_bast_kendaraan_desa": "64000000.00"
+    }
+   }
+  },
+  "NIKOP-0069": {
+   "uuid_reviu_bast": "1e4bdf6e-3bfa-5fb9-a4d5-afda56dab97e",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9901030001": {
+     "nilai_reviu_bast_desa": "425000000.00",
+     "nilai_bast_bangunan_desa": "255000000.00",
+     "nilai_bast_sarana_prasarana_desa": "127500000.00",
+     "nilai_bast_kendaraan_desa": "42500000.00"
+    },
+    "9901030002": {
+     "nilai_reviu_bast_desa": "425000000.00",
+     "nilai_bast_bangunan_desa": "255000000.00",
+     "nilai_bast_sarana_prasarana_desa": "127500000.00",
+     "nilai_bast_kendaraan_desa": "42500000.00"
+    },
+    "9901030003": {
+     "nilai_reviu_bast_desa": "425000000.00",
+     "nilai_bast_bangunan_desa": "255000000.00",
+     "nilai_bast_sarana_prasarana_desa": "127500000.00",
+     "nilai_bast_kendaraan_desa": "42500000.00"
+    },
+    "9901030004": {
+     "nilai_reviu_bast_desa": "425000000.00",
+     "nilai_bast_bangunan_desa": "255000000.00",
+     "nilai_bast_sarana_prasarana_desa": "127500000.00",
+     "nilai_bast_kendaraan_desa": "42500000.00"
+    }
+   }
+  },
+  "NIKOP-0070": {
+   "uuid_reviu_bast": "701619ca-bd3b-56ec-90c6-70815f46abaf",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9901030005": {
+     "nilai_reviu_bast_desa": "450000000.00",
+     "nilai_bast_bangunan_desa": "270000000.00",
+     "nilai_bast_sarana_prasarana_desa": "135000000.00",
+     "nilai_bast_kendaraan_desa": "45000000.00"
+    },
+    "9901030006": {
+     "nilai_reviu_bast_desa": "450000000.00",
+     "nilai_bast_bangunan_desa": "270000000.00",
+     "nilai_bast_sarana_prasarana_desa": "135000000.00",
+     "nilai_bast_kendaraan_desa": "45000000.00"
+    },
+    "9901030007": {
+     "nilai_reviu_bast_desa": "450000000.00",
+     "nilai_bast_bangunan_desa": "270000000.00",
+     "nilai_bast_sarana_prasarana_desa": "135000000.00",
+     "nilai_bast_kendaraan_desa": "45000000.00"
+    },
+    "9901030008": {
+     "nilai_reviu_bast_desa": "450000000.00",
+     "nilai_bast_bangunan_desa": "270000000.00",
+     "nilai_bast_sarana_prasarana_desa": "135000000.00",
+     "nilai_bast_kendaraan_desa": "45000000.00"
+    }
+   }
+  },
+  "NIKOP-0071": {
+   "uuid_reviu_bast": "8c25978f-2341-59a4-95ca-918cb93ff27f",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9901030009": {
+     "nilai_reviu_bast_desa": "475000000.00",
+     "nilai_bast_bangunan_desa": "285000000.00",
+     "nilai_bast_sarana_prasarana_desa": "142500000.00",
+     "nilai_bast_kendaraan_desa": "47500000.00"
+    },
+    "9901030010": {
+     "nilai_reviu_bast_desa": "475000000.00",
+     "nilai_bast_bangunan_desa": "285000000.00",
+     "nilai_bast_sarana_prasarana_desa": "142500000.00",
+     "nilai_bast_kendaraan_desa": "47500000.00"
+    },
+    "9902010001": {
+     "nilai_reviu_bast_desa": "475000000.00",
+     "nilai_bast_bangunan_desa": "285000000.00",
+     "nilai_bast_sarana_prasarana_desa": "142500000.00",
+     "nilai_bast_kendaraan_desa": "47500000.00"
+    },
+    "9902010002": {
+     "nilai_reviu_bast_desa": "475000000.00",
+     "nilai_bast_bangunan_desa": "285000000.00",
+     "nilai_bast_sarana_prasarana_desa": "142500000.00",
+     "nilai_bast_kendaraan_desa": "47500000.00"
+    }
+   }
+  },
+  "NIKOP-0072": {
+   "uuid_reviu_bast": "d41e3227-3d1b-55f4-b1a1-073c26c48e97",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9902010003": {
+     "nilai_reviu_bast_desa": "500000000.00",
+     "nilai_bast_bangunan_desa": "300000000.00",
+     "nilai_bast_sarana_prasarana_desa": "150000000.00",
+     "nilai_bast_kendaraan_desa": "50000000.00"
+    },
+    "9902010004": {
+     "nilai_reviu_bast_desa": "500000000.00",
+     "nilai_bast_bangunan_desa": "300000000.00",
+     "nilai_bast_sarana_prasarana_desa": "150000000.00",
+     "nilai_bast_kendaraan_desa": "50000000.00"
+    },
+    "9902010005": {
+     "nilai_reviu_bast_desa": "500000000.00",
+     "nilai_bast_bangunan_desa": "300000000.00",
+     "nilai_bast_sarana_prasarana_desa": "150000000.00",
+     "nilai_bast_kendaraan_desa": "50000000.00"
+    },
+    "9902010006": {
+     "nilai_reviu_bast_desa": "500000000.00",
+     "nilai_bast_bangunan_desa": "300000000.00",
+     "nilai_bast_sarana_prasarana_desa": "150000000.00",
+     "nilai_bast_kendaraan_desa": "50000000.00"
+    }
+   }
+  },
+  "NIKOP-0073": {
+   "uuid_reviu_bast": "7af27ee8-ac86-57bf-a5ba-7dd67cbe04bc",
+   "selisih_nilai_reviu": "0.00",
+   "desa": {
+    "9902010007": {
+     "nilai_reviu_bast_desa": "525000000.00",
+     "nilai_bast_bangunan_desa": "315000000.00",
+     "nilai_bast_sarana_prasarana_desa": "157500000.00",
+     "nilai_bast_kendaraan_desa": "52500000.00"
+    },
+    "9902010008": {
+     "nilai_reviu_bast_desa": "525000000.00",
+     "nilai_bast_bangunan_desa": "315000000.00",
+     "nilai_bast_sarana_prasarana_desa": "157500000.00",
+     "nilai_bast_kendaraan_desa": "52500000.00"
+    },
+    "9902010009": {
+     "nilai_reviu_bast_desa": "525000000.00",
+     "nilai_bast_bangunan_desa": "315000000.00",
+     "nilai_bast_sarana_prasarana_desa": "157500000.00",
+     "nilai_bast_kendaraan_desa": "52500000.00"
+    },
+    "9902010010": {
+     "nilai_reviu_bast_desa": "525000000.00",
+     "nilai_bast_bangunan_desa": "315000000.00",
+     "nilai_bast_sarana_prasarana_desa": "157500000.00",
+     "nilai_bast_kendaraan_desa": "52500000.00"
+    }
+   }
+  }
+ }
+}
