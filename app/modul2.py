@@ -80,6 +80,21 @@ async def terima_kdkmp(request: Request):
                        f"kode_desa_kelurahan {baris['kode_desa_kelurahan']} tidak ditemukan di ref_wilayah")
             else:
                 hidup2.append((nomor, baris))
+                
+        # Lapis 3 (K2-03): desa belum tersimpan di ref_kdkmp, dan tidak muncul dua kali dalam batch ini
+        sudah = {r["kode_desa_kelurahan"] for r in con.execute(
+            "SELECT kode_desa_kelurahan FROM ref_kdkmp WHERE kode_desa_kelurahan = ANY(%s)",
+            ([b["kode_desa_kelurahan"] for _, b in hidup2],)).fetchall()}
+        terlihat = set()            # kode desa yang sudah lolos lapis 3 dalam batch ini
+        hidup3 = []                 # lolos lapis 1 sampai 3; dipakai lapis 4 pada tahap berikutnya
+        for nomor, baris in hidup2:
+            kode = baris["kode_desa_kelurahan"]
+            if kode in sudah or kode in terlihat:
+                alasan = "sudah tersimpan di ref_kdkmp" if kode in sudah else "muncul lebih dari sekali dalam batch ini"
+                _tolak(galat, nomor, baris, "K2-03", "kode_desa_kelurahan", f"kode_desa_kelurahan {kode} {alasan}")
+            else:
+                terlihat.add(kode)
+                hidup3.append((nomor, baris))
 
         galat.sort(key=lambda g: g["baris"])
         nomor_ditolak = {g["baris"] for g in galat}
