@@ -1,8 +1,10 @@
 """Modul 2: ref_kdkmp. Pemilik: A. Aturan: kontrak API bagian 4 (K2-01 sampai K2-05) dan bagian 7."""
+from decimal import Decimal
+
 from fastapi import APIRouter, Request
 
 from db import koneksi
-from umum import ambil_rows, baca_json, catat_batch, halaman, jawab, susun_respons
+from umum import ambil_rows, baca_json, catat_batch, halaman, jawab, susun_respons, teks_valid
 
 router = APIRouter(prefix="/api/v1")
 
@@ -23,17 +25,64 @@ FROM ref_wilayah w
 WHERE w.kode_desa_kelurahan = %(kode_desa_kelurahan)s
 """
 
+# Field teks wajib dan panjang maksimumnya (sama dengan kolom di 001_schema.sql)
+FIELD_TEKS = {"kode_desa_kelurahan": 10, "nomor_induk_koperasi": 30, "nama_koperasi": 255, "jenis_koperasi": 10}
+
+
+def _cek_lapis1(baris):
+    """K2-01. Mengembalikan (field, pesan) untuk kegagalan pertama, atau None bila lolos."""
+    if not isinstance(baris, dict):
+        return ("-", "baris bukan objek JSON")
+    for field, maks in FIELD_TEKS.items():
+        if not teks_valid(baris, field, maks):
+            return (field, f"field '{field}' kosong, bukan teks, atau lebih dari {maks} karakter")
+    s = baris.get("struktur_kepemilikan")
+    if isinstance(s, bool) or s not in (1, 2):          # bool dicek dulu: True == 1 di Python
+        return ("struktur_kepemilikan", "harus 1 (TUNGGAL) atau 2 (BERSAMA)")
+    p = baris.get("porsi_kepemilikan")
+    if isinstance(p, bool) or not isinstance(p, (int, Decimal)):
+        return ("porsi_kepemilikan", "harus berupa angka")
+    if not (0 < p <= 100):
+        return ("porsi_kepemilikan", "harus lebih dari 0 dan paling banyak 100")
+    return None
+
+
+def _tolak(galat, nomor, baris, kode, field, pesan):
+    """Catat satu baris ditolak. Daftar `galat` ini nanti ditulis ke error_log oleh catat_batch."""
+    galat.append({"baris": nomor, "kode": kode, "field": field, "pesan": pesan, "data": baris})
+
+
 @router.post("/ref-kdkmp")
 async def terima_kdkmp(request: Request):
     rows = ambil_rows(await baca_json(request))
     total = len(rows)
+    galat = []                      # satu entri per baris yang ditolak
 
-    # Tahap 2 sampai 5 akan mengisi daftar ini dengan satu entri per baris yang ditolak:
-    # {"baris": nomor, "kode": "K2-01", "field": "...", "pesan": "...", "data": baris}
-    galat = []
-    nomor_ditolak = {g["baris"] for g in galat}
+    # Lapis 1 (K2-01): per baris, tanpa database
+    hidup = []                      # (nomor, baris) yang masih lolos
+    for nomor, baris in enumerate(rows, start=1):
+        g = _cek_lapis1(baris)
+        if g:
+            _tolak(galat, nomor, baris, "K2-01", g[0], g[1])
+        else:
+            hidup.append((nomor, baris))
 
     with koneksi() as con:
+        # Lapis 2 (K2-02): kode desa harus ada di ref_wilayah (satu query untuk semua baris)
+        kode_dicari = [b["kode_desa_kelurahan"] for _, b in hidup]
+        ada = {r["kode_desa_kelurahan"] for r in con.execute(
+            "SELECT kode_desa_kelurahan FROM ref_wilayah WHERE kode_desa_kelurahan = ANY(%s)",
+            (kode_dicari,)).fetchall()}
+        hidup2 = []                 # lolos lapis 1 dan 2; dipakai lapis 3 pada tahap berikutnya
+        for nomor, baris in hidup:
+            if baris["kode_desa_kelurahan"] not in ada:
+                _tolak(galat, nomor, baris, "K2-02", "kode_desa_kelurahan",
+                       f"kode_desa_kelurahan {baris['kode_desa_kelurahan']} tidak ditemukan di ref_wilayah")
+            else:
+                hidup2.append((nomor, baris))
+
+        galat.sort(key=lambda g: g["baris"])
+        nomor_ditolak = {g["baris"] for g in galat}
         batch_id = catat_batch(con, "ref_kdkmp", total, total - len(galat), len(galat), galat)
         for nomor, baris in enumerate(rows, start=1):
             if nomor in nomor_ditolak:
@@ -41,6 +90,7 @@ async def terima_kdkmp(request: Request):
             con.execute(SQL_SIMPAN, {**baris, "batch_id": batch_id})
 
     return jawab(susun_respons("ref_kdkmp", batch_id, total, galat))
+
 
 @router.get("/ref-kdkmp")
 def daftar_kdkmp(page: int = 1, per_page: int = 20, q: str | None = None,
