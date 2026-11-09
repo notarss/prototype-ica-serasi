@@ -252,5 +252,5 @@ asumsi purwarupa.
 
 | Tanggal | Perubahan | Disetujui |
 |---|---|---|
-| 8 Nov 2026 | Versi awal | (isi nama kalian) |
-| 8 Nov 2026 | Tambah bentuk respons W1-01 dan daftar, aturan Decimal, endpoint reset, D9, D10, penegasan D1. Selaras dengan kunci jawaban `uji/data_dummy/harapan.json` | (isi nama kalian) |
+| 8 Nov 2026 | Versi awal | Arsa, Adit, Rizqy |
+| 8 Nov 2026 | Tambah bentuk respons W1-01 dan daftar, aturan Decimal, endpoint reset, D9, D10, penegasan D1. Selaras dengan kunci jawaban `uji/data_dummy/harapan.json` | Arsa, Adit, Rizqy |
