@@ -1,0 +1,23 @@
+# Hanya database yang berjalan di Docker. Aplikasi dijalankan langsung di laptop (lihat README).
+services:
+  db:
+    image: postgres:16
+    container_name: serasi_db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"          # kiri = port di laptop, kanan = port di dalam kontainer
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Berkas di folder ini dijalankan OTOMATIS, tapi hanya saat database pertama kali dibuat.
+      - ./db/001_schema.sql:/docker-entrypoint-initdb.d/001_schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:
