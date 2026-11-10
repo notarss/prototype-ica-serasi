@@ -1,7 +1,7 @@
 """Modul 2: ref_kdkmp. Pemilik: A. Aturan: kontrak API bagian 4 (K2-01 sampai K2-05) dan bagian 7."""
 from decimal import Decimal
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, HTTPException
 
 from db import koneksi
 from umum import ambil_rows, baca_json, catat_batch, halaman, jawab, susun_respons, teks_valid
@@ -160,3 +160,13 @@ def daftar_kdkmp(page: int = 1, per_page: int = 20, q: str | None = None,
             f"SELECT * FROM ref_kdkmp {where} ORDER BY kode_desa_kelurahan LIMIT %s OFFSET %s",
             param + [per_page, offset]).fetchall()
     return jawab({"page": page, "per_page": per_page, "total": total, "items": items})
+    
+
+@router.get("/ref-kdkmp/{kode_desa_kelurahan}")
+def detail_kdkmp(kode_desa_kelurahan: str):
+    with koneksi() as con:
+        baris = con.execute("SELECT * FROM ref_kdkmp WHERE kode_desa_kelurahan = %s",
+                            (kode_desa_kelurahan,)).fetchone()
+    if baris is None:
+        raise HTTPException(status_code=404, detail="kode_desa_kelurahan tidak ditemukan")
+    return jawab(baris)
