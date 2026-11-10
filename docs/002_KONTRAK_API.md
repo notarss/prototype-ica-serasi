@@ -128,8 +128,8 @@ untuk memeriksa jumlah data tersimpan, dan `items` pada `/komponen-aset-desa` me
 
 ### Mengurai angka
 
-Uang dan porsi **harus diurai sebagai Decimal (bukan float)**. Contoh: `33.333334 + 33.333333 + 33.333333`
-dengan float tidak tepat `100.000000`, padahal aturan K2-05 menuntut tepat. Di Python gunakan
+Uang dan porsi **harus diurai sebagai Decimal (bukan float)**. Contoh: porsi `35.124823 + 53.911925 + 10.963252`
+berjumlah tepat `100.000000` secara desimal, tetapi dengan float menghasilkan `99.99999999999999`, padahal aturan K2-05 menuntut tepat. Di Python gunakan
 `Decimal(str(x))`; di PostgreSQL gunakan `NUMERIC`. Porsi dikirim sebagai angka JSON, uang sebagai string.
 
 ## 3. Endpoint baca (dipakai layar dan pengujian)
@@ -254,3 +254,4 @@ asumsi purwarupa.
 |---|---|---|
 | 8 Nov 2026 | Versi awal | Arsa, Adit, Rizqy |
 | 8 Nov 2026 | Tambah bentuk respons W1-01 dan daftar, aturan Decimal, endpoint reset, D9, D10, penegasan D1. Selaras dengan kunci jawaban `uji/data_dummy/harapan.json` | Arsa, Adit, Rizqy |
+s
