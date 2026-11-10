@@ -98,13 +98,35 @@ async def terima_reviu(request: Request):
         terdaftar = {r["nomor_induk_koperasi"] for r in con.execute(
             "SELECT DISTINCT nomor_induk_koperasi FROM ref_kdkmp WHERE nomor_induk_koperasi = ANY(%s)",
             ([b["nomor_induk_koperasi"] for _, b in hidup],)).fetchall()}
-        hidup2 = []                 # lolos R3-01 dan R3-02; dipakai R3-07 pada tahap berikutnya
+        hidup2 = []                 # lolos R3-01 dan R3-02; diperiksa R3-07 di bawah
         for nomor, baris in hidup:
             if baris["nomor_induk_koperasi"] not in terdaftar:
                 _tolak(galat, nomor, baris, "R3-02", "nomor_induk_koperasi",
                        f"nomor_induk_koperasi {baris['nomor_induk_koperasi']} belum terdaftar di ref_kdkmp")
             else:
                 hidup2.append((nomor, baris))
+
+        # R3-07: append-only. uuid belum pernah tersimpan DAN pasangan (NIKOP, jenis_reviu_bast) belum ada.
+        uuid_ada = {r["u"] for r in con.execute(
+            "SELECT uuid_reviu_bast::text AS u FROM reviu_bast WHERE uuid_reviu_bast = ANY(%s::uuid[])",
+            ([b["uuid_reviu_bast"] for _, b in hidup2],)).fetchall()}
+        pasangan_ada = {(r["nomor_induk_koperasi"], r["jenis_reviu_bast"]) for r in con.execute(
+            "SELECT nomor_induk_koperasi, jenis_reviu_bast FROM reviu_bast WHERE nomor_induk_koperasi = ANY(%s)",
+            ([b["nomor_induk_koperasi"] for _, b in hidup2],)).fetchall()}
+        terlihat_uuid, terlihat_pasangan = set(), set()     # yang sudah muncul di batch ini
+        hidup3 = []                 # lolos R3-01, R3-02, R3-07; dipakai R3-03 pada tahap berikutnya
+        for nomor, baris in hidup2:
+            u = baris["uuid_reviu_bast"]
+            p = (baris["nomor_induk_koperasi"], baris["jenis_reviu_bast"])
+            if u in uuid_ada or u in terlihat_uuid:
+                _tolak(galat, nomor, baris, "R3-07", "uuid_reviu_bast", f"uuid_reviu_bast {u} sudah ada (data bersifat append-only)")
+            elif p in pasangan_ada or p in terlihat_pasangan:
+                _tolak(galat, nomor, baris, "R3-07", "jenis_reviu_bast",
+                       f"NIKOP {p[0]} sudah punya reviu jenis {p[1]} (data bersifat append-only)")
+            else:
+                terlihat_uuid.add(u)
+                terlihat_pasangan.add(p)
+                hidup3.append((nomor, baris))
 
         galat.sort(key=lambda g: g["baris"])
         nomor_ditolak = {g["baris"] for g in galat}
