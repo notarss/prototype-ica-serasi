@@ -115,6 +115,21 @@ async def terima_kdkmp(request: Request):
                 else:
                     hidup4.append((nomor, baris))
 
+        # Lapis 5 (K2-05): jumlah porsi_kepemilikan per NIKOP, dihitung atas baris yang lolos lapis 1
+        # sampai 4 (keputusan D3 dan D10), harus tepat 100. Bila tidak, SEMUA baris NIKOP itu ditolak.
+        per_nikop5 = {}
+        for nomor, baris in hidup4:
+            per_nikop5.setdefault(baris["nomor_induk_koperasi"], []).append((nomor, baris))
+        hidup5 = []                 # lolos lapis 1 sampai 5: inilah yang akan disimpan
+        for nikop, kelompok in per_nikop5.items():
+            jumlah = sum((Decimal(b["porsi_kepemilikan"]) for _, b in kelompok), Decimal(0))
+            for nomor, baris in kelompok:
+                if jumlah != Decimal(100):
+                    _tolak(galat, nomor, baris, "K2-05", "porsi_kepemilikan",
+                           f"jumlah porsi_kepemilikan untuk nomor_induk_koperasi {nikop} adalah {jumlah}, harus tepat 100")
+                else:
+                    hidup5.append((nomor, baris))
+
         galat.sort(key=lambda g: g["baris"])
         nomor_ditolak = {g["baris"] for g in galat}
         batch_id = catat_batch(con, "ref_kdkmp", total, total - len(galat), len(galat), galat)
