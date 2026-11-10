@@ -114,7 +114,7 @@ async def terima_reviu(request: Request):
             "SELECT nomor_induk_koperasi, jenis_reviu_bast FROM reviu_bast WHERE nomor_induk_koperasi = ANY(%s)",
             ([b["nomor_induk_koperasi"] for _, b in hidup2],)).fetchall()}
         terlihat_uuid, terlihat_pasangan = set(), set()     # yang sudah muncul di batch ini
-        hidup3 = []                 # lolos R3-01, R3-02, R3-07; dipakai R3-03 pada tahap berikutnya
+        hidup3 = []                 # lolos R3-01, R3-02, R3-07; diperiksa R3-03 dan R3-04 di bawah
         for nomor, baris in hidup2:
             u = baris["uuid_reviu_bast"]
             p = (baris["nomor_induk_koperasi"], baris["jenis_reviu_bast"])
@@ -127,6 +127,28 @@ async def terima_reviu(request: Request):
                 terlihat_uuid.add(u)
                 terlihat_pasangan.add(p)
                 hidup3.append((nomor, baris))
+
+        # R3-03 dan R3-04: bandingkan dengan semua baris ref_kdkmp milik NIKOP yang sama (satu query)
+        milik = {}                  # NIKOP -> daftar baris ref_kdkmp-nya
+        for r in con.execute(
+                "SELECT nomor_induk_koperasi, kode_kecamatan, kode_kabkota, kode_provinsi, jenis_koperasi "
+                "FROM ref_kdkmp WHERE nomor_induk_koperasi = ANY(%s)",
+                ([b["nomor_induk_koperasi"] for _, b in hidup3],)).fetchall():
+            milik.setdefault(r["nomor_induk_koperasi"], []).append(r)
+        hidup4 = []                 # lolos R3-01, R3-02, R3-07, R3-03, R3-04; dipakai R3-05 pada tahap berikutnya
+        for nomor, baris in hidup3:
+            baris_ref = milik[baris["nomor_induk_koperasi"]]
+            wilayah_ref = {(r["kode_kecamatan"], r["kode_kabkota"], r["kode_provinsi"]) for r in baris_ref}
+            jenis_ref = {r["jenis_koperasi"] for r in baris_ref}
+            wilayah_kiriman = (baris["kode_kecamatan"], baris["kode_kabkota"], baris["kode_provinsi"])
+            if wilayah_kiriman not in wilayah_ref:          # D2: cocok dengan salah satu desa milik NIKOP itu
+                _tolak(galat, nomor, baris, "R3-03", "kode_kecamatan",
+                       "kecamatan, kabupaten/kota, dan provinsi tidak cocok dengan desa mana pun milik NIKOP di ref_kdkmp")
+            elif baris["jenis_koperasi"] not in jenis_ref:
+                _tolak(galat, nomor, baris, "R3-04", "jenis_koperasi",
+                       f"jenis_koperasi {baris['jenis_koperasi']} berbeda dengan ref_kdkmp ({', '.join(sorted(jenis_ref))})")
+            else:
+                hidup4.append((nomor, baris))
 
         galat.sort(key=lambda g: g["baris"])
         nomor_ditolak = {g["baris"] for g in galat}
