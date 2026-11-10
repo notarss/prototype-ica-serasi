@@ -179,13 +179,29 @@ async def terima_reviu(request: Request):
 
 @router.get("/reviu-bast")
 def daftar_reviu(page: int = 1, per_page: int = 20, nomor_induk_koperasi: str | None = None,
-                 jenis_reviu_bast: int | None = None):
+                 jenis_reviu_bast: int | None = None, kode_provinsi: str | None = None,
+                 kode_kabkota: str | None = None, jenis_koperasi: str | None = None,
+                 dari_tanggal: date | None = None, sampai_tanggal: date | None = None,
+                 q: str | None = None):
     page, per_page, offset = halaman(page, per_page)
     syarat, param = [], []
     if nomor_induk_koperasi:
         syarat.append("nomor_induk_koperasi = %s"); param.append(nomor_induk_koperasi)
     if jenis_reviu_bast is not None:
         syarat.append("jenis_reviu_bast = %s"); param.append(jenis_reviu_bast)
+    if kode_provinsi:
+        syarat.append("kode_provinsi = %s"); param.append(kode_provinsi)
+    if kode_kabkota:
+        syarat.append("kode_kabkota = %s"); param.append(kode_kabkota)
+    if jenis_koperasi:
+        syarat.append("jenis_koperasi = %s"); param.append(jenis_koperasi)
+    if dari_tanggal:
+        syarat.append("tanggal_reviu_bast >= %s"); param.append(dari_tanggal)
+    if sampai_tanggal:
+        syarat.append("tanggal_reviu_bast <= %s"); param.append(sampai_tanggal)
+    if q:
+        syarat.append("(nomor_reviu_bast ILIKE %s OR nama_koperasi ILIKE %s OR nomor_induk_koperasi LIKE %s)")
+        param += [f"%{q}%", f"%{q}%", f"{q}%"]
     where = ("WHERE " + " AND ".join(syarat)) if syarat else ""
     with koneksi() as con:
         total = con.execute(f"SELECT count(*) AS n FROM reviu_bast {where}", param).fetchone()["n"]

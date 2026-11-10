@@ -6,6 +6,7 @@ import modul1
 import modul2
 import modul3
 import modul4
+import opsi
 import riwayat
 from db import koneksi
 from umum import jawab
@@ -15,6 +16,7 @@ app.include_router(modul1.router)
 app.include_router(modul2.router)
 app.include_router(modul3.router)
 app.include_router(modul4.router)
+app.include_router(opsi.router)
 app.include_router(riwayat.router)
 app.include_router(internal.router)
 # A menambah: import modul2, modul3 lalu app.include_router(...)
