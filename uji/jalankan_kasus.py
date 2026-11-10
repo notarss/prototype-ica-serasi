@@ -126,6 +126,8 @@ def main():
     ap.add_argument("--reset", action="store_true", help="panggil POST /api/v1/internal/reset sebelum mulai")
     ap.add_argument("--sampai", help="berhenti setelah langkah ini, mis. S05")
     ap.add_argument("--hanya", help="jalankan satu langkah saja, mis. S12 (tanpa reset)")
+    ap.add_argument("--tanpa-turunan", action="store_true",
+                    help="lewati pemeriksaan T01 (Modul 4), dipakai selama Modul 4 belum selesai")
     a = ap.parse_args()
     base = a.url.rstrip("/")
     man = json.loads((HERE / "data_dummy" / "harapan.json").read_text(encoding="utf-8"))
@@ -154,7 +156,7 @@ def main():
         if a.sampai and s["id"] == a.sampai:
             break
     # Turunan (Modul 4) diperiksa bila S18 dijalankan
-    if not a.hanya or a.hanya == "S18":
+    if (not a.hanya or a.hanya == "S18") and not a.tanpa_turunan:
         if (not a.sampai) or a.sampai >= "S18":
             pesan = periksa_turunan(base, man["turunan"])
             if pesan:
