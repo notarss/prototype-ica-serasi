@@ -2,6 +2,7 @@
 import re
 import uuid as uuid_lib
 from datetime import date
+from decimal import Decimal
 
 from fastapi import APIRouter, HTTPException, Request
 
@@ -18,6 +19,7 @@ FIELD_TEKS = {
 }
 FIELD_UANG = ("nilai_reviu_bast", "nilai_bast_bangunan_kdkmp",
               "nilai_bast_sarana_prasarana_kdkmp", "nilai_bast_kendaraan_kdkmp")
+PLAFON = Decimal("3000000000")                           # batas nilai_reviu_bast (R3-05)
 POLA_TANGGAL = re.compile(r"\d{4}-\d{2}-\d{2}")
 POLA_UANG = re.compile(r"\d{1,13}(\.\d{1,2})?")      # teks desimal, paling banyak 2 angka di belakang koma
 
@@ -149,6 +151,19 @@ async def terima_reviu(request: Request):
                        f"jenis_koperasi {baris['jenis_koperasi']} berbeda dengan ref_kdkmp ({', '.join(sorted(jenis_ref))})")
             else:
                 hidup4.append((nomor, baris))
+
+        # R3-05 dan R3-06: aturan nilai uang, dihitung dengan Decimal (bukan float)
+        for nomor, baris in hidup4:
+            nilai = Decimal(baris["nilai_reviu_bast"])
+            jumlah = (Decimal(baris["nilai_bast_bangunan_kdkmp"])
+                      + Decimal(baris["nilai_bast_sarana_prasarana_kdkmp"])
+                      + Decimal(baris["nilai_bast_kendaraan_kdkmp"]))
+            if nilai > PLAFON:                              # R3-05: boleh tepat Rp3.000.000.000, lebih dari itu ditolak
+                _tolak(galat, nomor, baris, "R3-05", "nilai_reviu_bast",
+                       f"nilai_reviu_bast {nilai} melebihi plafon Rp3.000.000.000")
+            elif jumlah != nilai:                           # R3-06: tiga komponen harus menjumlah tepat
+                _tolak(galat, nomor, baris, "R3-06", "nilai_reviu_bast",
+                       f"jumlah tiga komponen {jumlah} tidak sama dengan nilai_reviu_bast {nilai}")
 
         galat.sort(key=lambda g: g["baris"])
         nomor_ditolak = {g["baris"] for g in galat}
