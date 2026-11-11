@@ -429,13 +429,167 @@ const daftarKomponen = halamanDaftar({
 });
 daftar("komponen", () => daftarKomponen());
 
-/* ---------- Halaman lain: diisi pada tahap berikutnya ---------- */
-const BELUM = {
-  riwayat:   ["Riwayat Pengiriman dan Error Log", "Tahap C5"],
-};
-for (const [nama, [judul, tahap]] of Object.entries(BELUM)) {
-  daftar(nama, async () => kepala(judul, "Halaman ini dibuat pada " + tahap) +
-                           `<div class="kartu"><div class="kosong">Belum dibuat.</div></div>`);
+/* ---------- Unduh CSV (C5) ---------- */
+const PEMISAH = ";";    // Excel berbahasa Indonesia memakai titik koma; ganti "," bila perlu
+
+async function ambilSemua(jalur, param = {}) {      // gabungkan semua halaman (API membatasi 100 baris per permintaan)
+  let semua = [], page = 1, ada = true;
+  while (ada) {
+    const d = await api(jalur, { ...param, page, per_page: 100 });
+    semua = semua.concat(d.items);
+    ada = d.items.length > 0 && semua.length < d.total;
+    page++;
+  }
+  return semua;
 }
+
+function selCsv(nilai) {
+  let t = nilai == null ? "" : (typeof nilai === "object" ? JSON.stringify(nilai) : String(nilai));
+  if (/^[=+\-@\t\r]/.test(t)) t = "'" + t;          // cegah teks dibaca Excel sebagai rumus
+  return /["\n\r;,]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t;
+}
+
+function unduhCsv(namaBerkas, kolom, baris) {       // kolom: [[judul, (b) => nilai], ...]
+  const isi = [kolom.map(k => selCsv(k[0])).join(PEMISAH)]
+    .concat(baris.map(b => kolom.map(k => selCsv(k[1](b))).join(PEMISAH))).join("\r\n");
+  const blob = new Blob(["\uFEFF" + isi], { type: "text/csv;charset=utf-8" });   // \uFEFF: agar Excel membaca UTF-8
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = namaBerkas;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+// Pasang tombol unduh: ambil semua data dulu, lalu buat berkas. Tombol dinonaktifkan selama proses.
+function pasangUnduh(tombol, ambil, namaBerkas, kolom) {
+  const teksAsal = tombol.textContent;
+  tombol.addEventListener("click", async () => {
+    tombol.disabled = true; tombol.textContent = "Menyiapkan...";
+    try { unduhCsv(namaBerkas, kolom, await ambil()); }
+    catch (e) { alert(e.message); }
+    finally { tombol.disabled = false; tombol.textContent = teksAsal; }
+  });
+}
+
+/* ---------- Halaman: Riwayat Pengiriman dan Error Log ---------- */
+const DATASET = { ref_wilayah: "Referensi Wilayah", ref_kdkmp: "Referensi KDKMP", reviu_bast: "Reviu BAST" };
+const KODE_ERROR = ["W1-01", "K2-01", "K2-02", "K2-03", "K2-04", "K2-05", "R3-01", "R3-02", "R3-03", "R3-04", "R3-05", "R3-06", "R3-07"];
+
+function waktu(teks) {                    // "2026-11-11 02:57:23.9+00:00" -> "11 Nov 2026, 09.57.23 WIB"
+  const t = String(teks ?? "");
+  const m = t.match(/^(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2}:\d{2})(?:\.\d+)?(Z|[+-]\d{2}(?::?\d{2})?)?/);
+  if (!m) return t;
+  let zona = m[3] || "Z";
+  if (/^[+-]\d{2}$/.test(zona)) zona += ":00";
+  const d = new Date(`${m[1]}T${m[2]}${zona}`);
+  if (isNaN(d)) return t;
+  return d.toLocaleString("id-ID", { timeZone: "Asia/Jakarta", day: "2-digit", month: "short", year: "numeric",
+                                     hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23" }) + " WIB";
+}
+
+function statusBatch(b) {
+  if (b.baris_ditolak === 0) return badge("Diterima semua", "hijau");
+  if (b.baris_diterima === 0) return badge("Ditolak semua", "merah");
+  return badge("Sebagian ditolak", "kuning");
+}
+
+async function halamanRiwayat() {
+  const s = (STATE.riwayat ??= { dataset: "", page: 1 });
+  const html = kepala("Riwayat Pengiriman dan Error Log", "Catatan setiap kiriman data dari sistem sumber beserta baris yang ditolak") +
+    `<div class="kartu filter">
+       <label>Dataset<select id="f-dataset">${pilihan(Object.entries(DATASET), s.dataset, "Semua")}</select></label>
+       <button class="tombol" id="f-unduh" type="button">Unduh CSV</button>
+     </div>
+     <div class="kartu tabel-kartu" id="hasil"><div class="memuat">Memuat…</div></div>`;
+  return { html, pasang: (wadah) => pasangRiwayat(s, wadah) };
+}
+
+async function pasangRiwayat(s, wadah) {
+  const kotak = wadah.querySelector("#hasil");
+  const kolom = [
+    { judul: "Waktu Diterima", isi: b => esc(waktu(b.diterima_pada)) },
+    { judul: "ID Batch", kelas: "kode", isi: b => `<span title="${esc(b.batch_id)}">${esc(b.batch_id.slice(0, 8))}</span>` },
+    { judul: "Dataset", isi: b => esc(DATASET[b.dataset] || b.dataset) },
+    { judul: "Pengirim", isi: b => esc(b.pengirim) },
+    { judul: "Total Baris", kelas: "kanan", isi: b => esc(b.total_baris) },
+    { judul: "Diterima", kelas: "kanan", isi: b => esc(b.baris_diterima) },
+    { judul: "Ditolak", kelas: "kanan", isi: b => esc(b.baris_ditolak) },
+    { judul: "Status", isi: b => statusBatch(b) },
+    { judul: "Aksi", kelas: "kanan", isi: b => b.baris_ditolak > 0
+        ? `<a class="tombol-detail" href="#/riwayat/${encodeURIComponent(b.batch_id)}">Lihat Error</a>`
+        : `<span class="redup">Tidak ada error</span>` },
+  ];
+  async function muat() {
+    try {
+      const d = await api("/batches", { page: s.page, per_page: 15, dataset: s.dataset });
+      kotak.innerHTML = tabel(kolom, d.items, "Belum ada pengiriman.") + paginasi(d.total, d.page, d.per_page);
+      kotak.querySelectorAll("[data-hal]").forEach(t =>
+        t.addEventListener("click", () => { s.page = Number(t.dataset.hal); muat(); }));
+    } catch (e) { kotak.innerHTML = `<div class="galat">${esc(e.message)}</div>`; }
+  }
+  wadah.querySelector("#f-dataset").addEventListener("change", (e) => { s.dataset = e.target.value; s.page = 1; muat(); });
+  pasangUnduh(wadah.querySelector("#f-unduh"), () => ambilSemua("/batches", { dataset: s.dataset }), "riwayat_pengiriman.csv", [
+    ["batch_id", b => b.batch_id], ["diterima_pada", b => b.diterima_pada], ["dataset", b => b.dataset],
+    ["pengirim", b => b.pengirim], ["total_baris", b => b.total_baris], ["baris_diterima", b => b.baris_diterima],
+    ["baris_ditolak", b => b.baris_ditolak],
+  ]);
+  await muat();
+}
+
+async function detailRiwayat(id) {
+  await api("/batches/" + encodeURIComponent(id) + "/errors", { per_page: 1 });      // 404 bila batch tidak ada
+  // API belum punya GET /batches/{id}, jadi ringkasan dicari dari daftar batch.
+  const b = (await ambilSemua("/batches")).find(x => x.batch_id === id);
+  const s = (STATE["err-" + id] ??= { kode: "", page: 1 });
+
+  const ringkasan = b ? profil([
+    ["ID Batch", `<span class="kode">${esc(b.batch_id)}</span>`],
+    ["Dataset", esc(DATASET[b.dataset] || b.dataset)],
+    ["Pengirim", esc(b.pengirim)],
+    ["Waktu Diterima", esc(waktu(b.diterima_pada))],
+    ["Total Baris", esc(b.total_baris)],
+    ["Baris Diterima", esc(b.baris_diterima)],
+    ["Baris Ditolak", esc(b.baris_ditolak)],
+    ["Status", statusBatch(b)],
+  ]) : profil([["ID Batch", `<span class="kode">${esc(id)}</span>`]]);
+  const catatanWilayah = b && b.dataset === "ref_wilayah" && b.baris_ditolak > 0
+    ? `<div class="catatan total-porsi">Pada Referensi Wilayah, satu baris cacat menolak seluruh batch (W1-01). Error log hanya mencatat baris yang cacat.</div>` : "";
+
+  const html = kepalaDetail("Error Log Batch " + id.slice(0, 8), "Rincian baris yang ditolak pada pengiriman ini", "#/riwayat") +
+    `<div class="kartu"><h2>Ringkasan Pengiriman</h2>${ringkasan}${catatanWilayah}</div>
+     <div class="kartu filter">
+       <label>Kode Error<select id="f-kode">${pilihan(KODE_ERROR.map(k => [k, k]), s.kode, "Semua")}</select></label>
+       <button class="tombol" id="f-unduh" type="button">Unduh CSV</button>
+     </div>
+     <div class="kartu tabel-kartu" id="hasil"><div class="memuat">Memuat…</div></div>`;
+  return { html, pasang: (wadah) => pasangDetailRiwayat(id, s, wadah) };
+}
+
+async function pasangDetailRiwayat(id, s, wadah) {
+  const kotak = wadah.querySelector("#hasil");
+  const jalur = "/batches/" + encodeURIComponent(id) + "/errors";
+  const kolom = [
+    { judul: "Baris Ke", kelas: "kanan", isi: e => esc(e.nomor_baris) },
+    { judul: "Kode Error", isi: e => badge(e.kode_error, "merah") },
+    { judul: "Field", kelas: "kode", isi: e => esc(e.field || "-") },
+    { judul: "Pesan", isi: e => esc(e.pesan) },
+    { judul: "Data Baris", isi: e => `<details class="data-baris"><summary>Lihat</summary><pre>${esc(JSON.stringify(e.data_baris, null, 2))}</pre></details>` },
+  ];
+  async function muat() {
+    try {
+      const d = await api(jalur, { page: s.page, per_page: 15, kode_error: s.kode });
+      kotak.innerHTML = tabel(kolom, d.items, "Tidak ada error yang cocok dengan filter.") + paginasi(d.total, d.page, d.per_page);
+      kotak.querySelectorAll("[data-hal]").forEach(t =>
+        t.addEventListener("click", () => { s.page = Number(t.dataset.hal); muat(); }));
+    } catch (e) { kotak.innerHTML = `<div class="galat">${esc(e.message)}</div>`; }
+  }
+  wadah.querySelector("#f-kode").addEventListener("change", (e) => { s.kode = e.target.value; s.page = 1; muat(); });
+  pasangUnduh(wadah.querySelector("#f-unduh"), () => ambilSemua(jalur, { kode_error: s.kode }), "error_log_" + id.slice(0, 8) + ".csv", [
+    ["nomor_baris", e => e.nomor_baris], ["kode_error", e => e.kode_error], ["field", e => e.field],
+    ["pesan", e => e.pesan], ["data_baris", e => e.data_baris],
+  ]);
+  await muat();
+}
+daftar("riwayat", (id) => (id ? detailRiwayat(id) : halamanRiwayat()));
 
 tampil();
