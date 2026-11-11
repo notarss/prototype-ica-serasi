@@ -164,6 +164,7 @@ function halamanDaftar(cfg) {
          ${tanggalHtml}
          <label class="lebar">${esc(cfg.labelCari)}<input id="f-q" type="search" placeholder="${esc(cfg.placeholder)}" value="${esc(s.q)}"></label>
          <button class="tombol" id="f-cari" type="button">Cari</button>
+         ${cfg.csv ? `<button class="tombol tombol-sekunder" id="f-unduh" type="button">Unduh CSV</button>` : ""}
        </div>
        <div class="kartu tabel-kartu" id="hasil"><div class="memuat">Memuat…</div></div>`;
     return { html, pasang: (wadah) => pasangDaftar(cfg, s, wadah) };
@@ -179,12 +180,12 @@ async function pasangDaftar(cfg, s, wadah) {
     selKab.innerHTML = pilihan(d.map(k => [k.kode_kabkota, k.nama_kabkota]), s.kabkota, "Semua");
     selKab.disabled = false;
   }
+  const parameter = () => ({ q: s.q, kode_provinsi: s.provinsi, kode_kabkota: s.kabkota, jenis_koperasi: s.tipe,
+                              dari_tanggal: s.dari, sampai_tanggal: s.sampai });
   async function muat() {
     const kotak = $("#hasil");
     try {
-      const d = await api(cfg.jalur, { page: s.page, per_page: cfg.perPage || 15, q: s.q,
-                                       kode_provinsi: s.provinsi, kode_kabkota: s.kabkota, jenis_koperasi: s.tipe,
-                                       dari_tanggal: s.dari, sampai_tanggal: s.sampai });
+      const d = await api(cfg.jalur, { page: s.page, per_page: cfg.perPage || 15, ...parameter() });
       kotak.innerHTML = tabel(cfg.kolom, d.items, "Tidak ada data yang cocok dengan filter.") + paginasi(d.total, d.page, d.per_page);
       kotak.querySelectorAll("[data-hal]").forEach(t =>
         t.addEventListener("click", () => { s.page = Number(t.dataset.hal); muat(); }));
@@ -200,6 +201,7 @@ async function pasangDaftar(cfg, s, wadah) {
   const cari = () => { s.q = $("#f-q").value.trim(); s.page = 1; muat(); };
   $("#f-cari").addEventListener("click", cari);
   $("#f-q").addEventListener("keydown", (e) => { if (e.key === "Enter") cari(); });
+  if (cfg.csv) pasangUnduh($("#f-unduh"), () => ambilSemua(cfg.jalur, parameter()), cfg.csv.berkas, kolomCsv(...cfg.csv.kolom));  
   await isiKabkota();
   await muat();
 }
@@ -207,7 +209,8 @@ async function pasangDaftar(cfg, s, wadah) {
 /* ---------- Halaman: Referensi Wilayah ---------- */
 const daftarWilayah = halamanDaftar({
   kunci: "wilayah", judul: "Referensi Wilayah", sub: "Data referensi desa/kelurahan beserta kecamatan, kabupaten/kota, dan provinsi",
-  jalur: "/ref-wilayah", tipe: false, labelCari: "Cari Wilayah", placeholder: "Nama/kode desa atau kecamatan…",
+  jalur: "/ref-wilayah", tipe: false, csv: { berkas: "referensi_wilayah.csv", kolom: ["kode_desa_kelurahan", "nama_desa_kelurahan",
+    "kode_kecamatan", "nama_kecamatan", "kode_kabkota", "nama_kabkota", "kode_provinsi", "nama_provinsi"] }, labelCari: "Cari Wilayah", placeholder: "Nama/kode desa atau kecamatan…",
   kolom: [
     { judul: "Kode Desa/Kelurahan", kelas: "kode", isi: b => esc(b.kode_desa_kelurahan) },
     { judul: "Nama Desa/Kelurahan", isi: b => `<b>${esc(b.nama_desa_kelurahan)}</b>` },
@@ -263,7 +266,8 @@ const labelStatus = (s) => (s === "AKTIF" ? badge("Aktif", "hijau") : badge(s, "
 
 const daftarKoperasi = halamanDaftar({
   kunci: "koperasi", judul: "Referensi KDKMP", sub: "Data referensi KDMP dan KKMP aktif lintas wilayah",
-  jalur: "/koperasi", tipe: true, labelCari: "Cari Koperasi", placeholder: "Nama/NIK koperasi…",
+  jalur: "/koperasi", tipe: true, csv: { berkas: "referensi_kdkmp.csv", kolom: ["nomor_induk_koperasi", "nama_koperasi",
+    "jenis_koperasi", "struktur_kepemilikan", "status", "jumlah_desa", "total_porsi", "nama_kabkota", "nama_provinsi"] }, labelCari: "Cari Koperasi", placeholder: "Nama/NIK koperasi…",
   kolom: [
     { judul: "NIK", kelas: "kode", isi: b => esc(b.nomor_induk_koperasi) },
     { judul: "Nama Koperasi", isi: b => esc(b.nama_koperasi) },
@@ -333,7 +337,10 @@ function dariSen(sen) {                   // 126000000000n -> "1260000000.00"
 /* ---------- Halaman: Data BAST ---------- */
 const daftarBast = halamanDaftar({
   kunci: "bast", judul: "Data BAST", sub: "Reviu BAST yang diterima dari sistem sumber",
-  jalur: "/reviu-bast", tipe: true, tanggal: true, labelCari: "Cari Reviu BAST", placeholder: "Nomor reviu, nama koperasi, atau NIK…",
+  jalur: "/reviu-bast", tipe: true, tanggal: true, csv: { berkas: "reviu_bast.csv", kolom: ["nomor_reviu_bast",
+    "tanggal_reviu_bast", "nomor_induk_koperasi", "nama_koperasi", "jenis_koperasi", "nama_kabkota", "nama_provinsi",
+    "jenis_reviu_bast", "nilai_reviu_bast", "nilai_bast_bangunan_kdkmp", "nilai_bast_sarana_prasarana_kdkmp",
+    "nilai_bast_kendaraan_kdkmp"] }, labelCari: "Cari Reviu BAST", placeholder: "Nomor reviu, nama koperasi, atau NIK…",
   kolom: [
     { judul: "Nomor Reviu BAST", kelas: "kode", isi: b => esc(b.nomor_reviu_bast) },
     { judul: "Tanggal", isi: b => esc(b.tanggal_reviu_bast) },
@@ -414,7 +421,9 @@ daftar("bast", (uuid) => (uuid ? detailBast(uuid) : daftarBast()));
 const daftarKomponen = halamanDaftar({
   kunci: "komponen", judul: "Komponen Aset KDKMP per Desa",
   sub: "Nilai komponen aset setiap desa pemegang porsi, dihitung otomatis dari reviu BAST",
-  jalur: "/komponen-aset-desa", tipe: true, labelCari: "Cari Komponen", placeholder: "Nama desa, nama koperasi, atau nomor reviu…",
+  jalur: "/komponen-aset-desa", tipe: true, csv: { berkas: "komponen_aset_desa.csv", kolom: ["kode_desa_kelurahan",
+    "nama_desa_kelurahan", "nama_koperasi", "nomor_reviu_bast", "porsi_kepemilikan", "nilai_bast_bangunan_desa",
+    "nilai_bast_sarana_prasarana_desa", "nilai_bast_kendaraan_desa", "total_nilai_desa"] }, labelCari: "Cari Komponen", placeholder: "Nama desa, nama koperasi, atau nomor reviu…",
   kolom: [
     { judul: "Kode Desa", kelas: "kode", isi: k => esc(k.kode_desa_kelurahan) },
     { judul: "Nama Desa/Kelurahan", isi: k => `<b>${esc(k.nama_desa_kelurahan)}</b>` },
@@ -442,6 +451,8 @@ async function ambilSemua(jalur, param = {}) {      // gabungkan semua halaman (
   }
   return semua;
 }
+
+function kolomCsv(...nama) { return nama.map(n => [n, b => b[n]]); }   // ["a","b"] -> [["a", b => b.a], ["b", b => b.b]]
 
 function selCsv(nilai) {
   let t = nilai == null ? "" : (typeof nilai === "object" ? JSON.stringify(nilai) : String(nilai));
