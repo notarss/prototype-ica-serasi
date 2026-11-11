@@ -139,3 +139,6 @@ a { color: var(--biru-tombol); }
 .data-baris summary { cursor: pointer; color: var(--biru-tombol); font-size: 13px; }
 .data-baris pre { margin: 8px 0 0; padding: 10px; max-width: 360px; white-space: pre-wrap; word-break: break-all;
                   font-size: 12px; background: #f1f5f9; border-radius: 8px; }
+
+.tombol-sekunder { background: #fff; color: var(--biru-tombol); border: 1px solid var(--biru-tombol); }
+.tombol-sekunder:hover { background: var(--latar); filter: none; }
