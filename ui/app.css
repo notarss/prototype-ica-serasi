@@ -80,7 +80,7 @@ body { margin: 0; font-family: Inter, "Segoe UI", system-ui, sans-serif; color: 
 .filter { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; }
 .filter label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 600; color: var(--biru-judul); min-width: 190px; flex: 1; }
 .filter label.lebar { flex: 2; min-width: 260px; }
-select, input[type="search"] { font: inherit; font-size: 14px; font-weight: 400; color: var(--teks); height: 42px; padding: 0 12px;
+select, input[type="search"], input[type="date"] { font: inherit; font-size: 14px; font-weight: 400; color: var(--teks); height: 42px; padding: 0 12px;
                                border: 1px solid var(--garis); border-radius: 8px; background: #fff; width: 100%; }
 select:disabled { background: #f1f5f9; color: var(--teks-redup); }
 .tombol { height: 42px; padding: 0 28px; border: 0; border-radius: 8px; background: var(--biru-tombol); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
@@ -107,8 +107,10 @@ select:disabled { background: #f1f5f9; color: var(--teks-redup); }
 .tabel-kartu .tabel-bungkus { margin: 0; }
 .kartu .tabel { font-size: 13px; }
 .kartu .tabel th, .kartu .tabel td { padding: 10px 12px; }
-.tabel-kartu .tabel { font-size: 14px; }
-.tabel-kartu .tabel th, .tabel-kartu .tabel td { padding: 12px 16px; }
+.tabel-kartu .tabel { font-size: 13px; }
+.tabel-kartu .tabel th, .tabel-kartu .tabel td { padding: 12px 9px; }
+.tabel-kartu .tabel th:first-child, .tabel-kartu .tabel td:first-child { padding-left: 16px; }
+.tabel-kartu .tabel th:last-child, .tabel-kartu .tabel td:last-child { padding-right: 16px; }
 .paginasi { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; font-size: 13px; color: var(--teks-redup); flex-wrap: wrap; gap: 8px; }
 .hal-info { margin: 0 10px; }
 
@@ -126,3 +128,8 @@ a { color: var(--biru-tombol); }
 .baris-nilai.total { color: var(--teks); font-weight: 700; border-top: 1px dashed var(--garis); margin-top: 6px; padding-top: 8px; }
 .cocok { background: var(--hijau-latar); border-left: 4px solid var(--hijau-tepi); color: var(--hijau-teks); border-radius: 8px; padding: 10px 14px; font-weight: 600; }
 .total-porsi { margin-top: 14px; }
+
+/* ---------- Tambahan C4 ---------- */
+.redup { color: var(--teks-redup); }
+.catatan { background: #fef3c7; border-left: 4px solid #f59e0b; color: #92400e; border-radius: 8px; padding: 10px 14px; font-weight: 600; }
+.tabel td.kode, .tabel td.nowrap { white-space: nowrap; }

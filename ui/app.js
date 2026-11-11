@@ -149,15 +149,19 @@ function tombolDetail(rute) { return `<a class="tombol-detail" href="${rute}">De
 /* Halaman daftar generik: kartu filter + tabel + penomoran halaman */
 function halamanDaftar(cfg) {
   return async () => {
-    const s = (STATE[cfg.kunci] ??= { provinsi: "", kabkota: "", tipe: "", q: "", page: 1 });
+    const s = (STATE[cfg.kunci] ??= { provinsi: "", kabkota: "", tipe: "", dari: "", sampai: "", q: "", page: 1 });
     const provinsi = (await api("/opsi/provinsi")).items;
     const tipeHtml = cfg.tipe
       ? `<label>Tipe Koperasi<select id="f-tipe">${pilihan([["KDMP", "KDMP"], ["KKMP", "KKMP"]], s.tipe, "Semua")}</select></label>` : "";
+    const tanggalHtml = cfg.tanggal
+      ? `<label>Dari Tanggal<input type="date" id="f-dari" value="${esc(s.dari)}"></label>
+         <label>Sampai Tanggal<input type="date" id="f-sampai" value="${esc(s.sampai)}"></label>` : "";
     const html = kepala(cfg.judul, cfg.sub) +
       `<div class="kartu filter">
          <label>Provinsi<select id="f-prov">${pilihan(provinsi.map(p => [p.kode_provinsi, p.nama_provinsi]), s.provinsi, "Semua")}</select></label>
          <label>Kabupaten/Kota<select id="f-kab" disabled></select></label>
          ${tipeHtml}
+         ${tanggalHtml}
          <label class="lebar">${esc(cfg.labelCari)}<input id="f-q" type="search" placeholder="${esc(cfg.placeholder)}" value="${esc(s.q)}"></label>
          <button class="tombol" id="f-cari" type="button">Cari</button>
        </div>
@@ -179,7 +183,8 @@ async function pasangDaftar(cfg, s, wadah) {
     const kotak = $("#hasil");
     try {
       const d = await api(cfg.jalur, { page: s.page, per_page: cfg.perPage || 15, q: s.q,
-                                       kode_provinsi: s.provinsi, kode_kabkota: s.kabkota, jenis_koperasi: s.tipe });
+                                       kode_provinsi: s.provinsi, kode_kabkota: s.kabkota, jenis_koperasi: s.tipe,
+                                       dari_tanggal: s.dari, sampai_tanggal: s.sampai });
       kotak.innerHTML = tabel(cfg.kolom, d.items, "Tidak ada data yang cocok dengan filter.") + paginasi(d.total, d.page, d.per_page);
       kotak.querySelectorAll("[data-hal]").forEach(t =>
         t.addEventListener("click", () => { s.page = Number(t.dataset.hal); muat(); }));
@@ -189,6 +194,9 @@ async function pasangDaftar(cfg, s, wadah) {
   selKab.addEventListener("change", (e) => { s.kabkota = e.target.value; s.page = 1; muat(); });
   const selTipe = $("#f-tipe");
   if (selTipe) selTipe.addEventListener("change", (e) => { s.tipe = e.target.value; s.page = 1; muat(); });
+  const selDari = $("#f-dari"), selSampai = $("#f-sampai");
+  if (selDari) selDari.addEventListener("change", (e) => { s.dari = e.target.value; s.page = 1; muat(); });
+  if (selSampai) selSampai.addEventListener("change", (e) => { s.sampai = e.target.value; s.page = 1; muat(); });
   const cari = () => { s.q = $("#f-q").value.trim(); s.page = 1; muat(); };
   $("#f-cari").addEventListener("click", cari);
   $("#f-q").addEventListener("keydown", (e) => { if (e.key === "Enter") cari(); });
@@ -311,10 +319,118 @@ async function detailKoperasi(nik) {
 }
 daftar("koperasi", (nik) => (nik ? detailKoperasi(nik) : daftarKoperasi()));
 
+/* ---------- Hitung uang tanpa float (C4) ---------- */
+// Uang diubah ke bilangan bulat dalam sen (BigInt), dijumlahkan, lalu dikembalikan ke teks.
+function keSen(teks) {                    // "1260000000.00" -> 126000000000n
+  const [bulat, desimal = ""] = String(teks ?? "0").split(".");
+  return BigInt(bulat + (desimal + "00").slice(0, 2));
+}
+function dariSen(sen) {                   // 126000000000n -> "1260000000.00"
+  const s = (sen < 0n ? -sen : sen).toString().padStart(3, "0");
+  return (sen < 0n ? "-" : "") + s.slice(0, -2) + "." + s.slice(-2);
+}
+
+/* ---------- Halaman: Data BAST ---------- */
+const daftarBast = halamanDaftar({
+  kunci: "bast", judul: "Data BAST", sub: "Reviu BAST yang diterima dari sistem sumber",
+  jalur: "/reviu-bast", tipe: true, tanggal: true, labelCari: "Cari Reviu BAST", placeholder: "Nomor reviu, nama koperasi, atau NIK…",
+  kolom: [
+    { judul: "Nomor Reviu BAST", kelas: "kode", isi: b => esc(b.nomor_reviu_bast) },
+    { judul: "Tanggal", isi: b => esc(b.tanggal_reviu_bast) },
+    { judul: "Koperasi", isi: b => `${esc(b.nama_koperasi)}<div class="kode redup">${esc(b.nomor_induk_koperasi)}</div>` },
+    { judul: "Kab/Kota", isi: b => esc(b.nama_kabkota) },
+    { judul: "Tipe", isi: b => badge(b.jenis_koperasi) },
+    { judul: "Jenis Reviu", isi: b => esc(b.jenis_reviu_bast) },
+    { judul: "Nilai Reviu BAST", kelas: "kanan", isi: b => `<b>${rupiah(b.nilai_reviu_bast)}</b>` },
+    { judul: "Aksi", kelas: "kanan", isi: b => tombolDetail("#/bast/" + encodeURIComponent(b.uuid_reviu_bast)) },
+  ],
+});
+
+async function detailBast(uuid) {
+  const r = await api("/reviu-bast/" + encodeURIComponent(uuid));
+  // Alokasi per desa: API belum punya filter uuid, jadi ambil per koperasi lalu saring di sini.
+  const alokasi = (await api("/komponen-aset-desa", { nomor_induk_koperasi: r.nomor_induk_koperasi, per_page: 100 }))
+    .items.filter(k => k.uuid_reviu_bast === r.uuid_reviu_bast);
+
+  const kartuProfil = `<div class="kartu"><h2>Profil Reviu BAST</h2>${profil([
+    ["Nomor Reviu BAST", `<span class="kode">${esc(r.nomor_reviu_bast)}</span>`],
+    ["Tanggal Reviu BAST", esc(r.tanggal_reviu_bast)],
+    ["Koperasi", `<a href="#/koperasi/${encodeURIComponent(r.nomor_induk_koperasi)}">${esc(r.nama_koperasi)}</a>`],
+    ["NIK", `<span class="kode">${esc(r.nomor_induk_koperasi)}</span>`],
+    ["Tipe Koperasi", badge(r.jenis_koperasi)],
+    ["Jenis Reviu BAST", esc(r.jenis_reviu_bast)],
+    ["Kecamatan", esc(r.nama_kecamatan)],
+    ["Kabupaten/Kota", esc(r.nama_kabkota)],
+    ["Provinsi", esc(r.nama_provinsi)],
+  ])}</div>`;
+
+  // Verifikasi: jumlah tiga komponen harus sama dengan nilai reviu (aturan R3-06), dihitung dalam sen.
+  const komponen = [["Bangunan", r.nilai_bast_bangunan_kdkmp],
+                    ["Sarana dan Prasarana", r.nilai_bast_sarana_prasarana_kdkmp],
+                    ["Kendaraan", r.nilai_bast_kendaraan_kdkmp]];
+  const jumlah = komponen.reduce((a, [, v]) => a + keSen(v), 0n);
+  const seimbang = jumlah === keSen(r.nilai_reviu_bast);
+  const kartuVerifikasi = `<div class="kartu"><h2>Verifikasi Nilai Komponen</h2>` +
+    komponen.map(([l, v]) => `<div class="baris-nilai"><span>${esc(l)}</span><span>${rupiah(v)}</span></div>`).join("") +
+    `<div class="baris-nilai total"><span>Jumlah tiga komponen</span><span>${rupiah(dariSen(jumlah))}</span></div>
+     <div class="baris-nilai total"><span>Nilai Reviu BAST</span><span>${rupiah(r.nilai_reviu_bast)}</span></div>
+     <div class="${seimbang ? "cocok" : "galat"} total-porsi">${seimbang
+        ? "Cocok dan seimbang"
+        : "Tidak seimbang, selisih " + esc(rupiah(dariSen(keSen(r.nilai_reviu_bast) - jumlah)))}</div></div>`;
+
+  // Alokasi per desa dan selisih pembulatan terhadap nilai reviu (aturan D5: ROUND 2 desimal per komponen per desa).
+  let isiAlokasi;
+  if (!alokasi.length) {
+    isiAlokasi = `<div class="kosong">Belum ada alokasi komponen untuk reviu ini.</div>`;
+  } else {
+    const totalDesa = alokasi.reduce((a, k) => a + keSen(k.total_nilai_desa), 0n);
+    const selisih = keSen(r.nilai_reviu_bast) - totalDesa;
+    const mutlak = selisih < 0n ? -selisih : selisih;
+    const wajar = mutlak <= BigInt(2 * alokasi.length);      // paling banyak 2 sen per desa akibat pembulatan
+    const catatan = selisih === 0n
+      ? `<div class="cocok total-porsi">Jumlah seluruh desa: ${rupiah(dariSen(totalDesa))}. Tidak ada selisih.</div>`
+      : `<div class="${wajar ? "catatan" : "galat"} total-porsi">Jumlah seluruh desa: ${rupiah(dariSen(totalDesa))}.
+           Selisih terhadap Nilai Reviu BAST: ${rupiah(dariSen(selisih))}
+           ${wajar ? "(akibat pembulatan dua desimal per komponen per desa)" : "(melebihi batas pembulatan)"}</div>`;
+    isiAlokasi = tabel([
+      { judul: "Kode Desa", kelas: "kode", isi: k => esc(k.kode_desa_kelurahan) },
+      { judul: "Nama Desa/Kelurahan", isi: k => `<b>${esc(k.nama_desa_kelurahan)}</b>` },
+      { judul: "Porsi", kelas: "kanan", isi: k => persen(k.porsi_kepemilikan) + "%" },
+      { judul: "Bangunan", kelas: "kanan", isi: k => rupiah(k.nilai_bast_bangunan_desa) },
+      { judul: "Sarpras", kelas: "kanan", isi: k => rupiah(k.nilai_bast_sarana_prasarana_desa) },
+      { judul: "Kendaraan", kelas: "kanan", isi: k => rupiah(k.nilai_bast_kendaraan_desa) },
+      { judul: "Total Desa", kelas: "kanan", isi: k => `<b>${rupiah(k.total_nilai_desa)}</b>` },
+    ], alokasi) + catatan;
+  }
+  const kartuAlokasi = `<div class="kartu"><h2>Alokasi Komponen ke Desa</h2>${isiAlokasi}</div>`;
+
+  return kepalaDetail("Detail Reviu BAST: " + r.nomor_reviu_bast,
+                      "Profil reviu, verifikasi nilai komponen, dan alokasi ke desa pemegang porsi", "#/bast") +
+    `<div class="dua-kolom"><div>${kartuProfil}</div><div>${kartuVerifikasi}</div></div>${kartuAlokasi}`;
+}
+daftar("bast", (uuid) => (uuid ? detailBast(uuid) : daftarBast()));
+
+/* ---------- Halaman: Komponen Aset KDKMP per Desa ---------- */
+const daftarKomponen = halamanDaftar({
+  kunci: "komponen", judul: "Komponen Aset KDKMP per Desa",
+  sub: "Nilai komponen aset setiap desa pemegang porsi, dihitung otomatis dari reviu BAST",
+  jalur: "/komponen-aset-desa", tipe: true, labelCari: "Cari Komponen", placeholder: "Nama desa, nama koperasi, atau nomor reviu…",
+  kolom: [
+    { judul: "Kode Desa", kelas: "kode", isi: k => esc(k.kode_desa_kelurahan) },
+    { judul: "Nama Desa/Kelurahan", isi: k => `<b>${esc(k.nama_desa_kelurahan)}</b>` },
+    { judul: "Koperasi", kelas: "nowrap", isi: k => esc(k.nama_koperasi) },
+    { judul: "Sumber BAST", kelas: "kode", isi: k => `<a href="#/bast/${encodeURIComponent(k.uuid_reviu_bast)}">${esc(k.nomor_reviu_bast)}</a>` },
+    { judul: "Porsi", kelas: "kanan", isi: k => persen(k.porsi_kepemilikan) + "%" },
+    { judul: "Bangunan", kelas: "kanan", isi: k => rupiah(k.nilai_bast_bangunan_desa) },
+    { judul: "Sarpras", kelas: "kanan", isi: k => rupiah(k.nilai_bast_sarana_prasarana_desa) },
+    { judul: "Kendaraan", kelas: "kanan", isi: k => rupiah(k.nilai_bast_kendaraan_desa) },
+    { judul: "Total Desa", kelas: "kanan", isi: k => `<b>${rupiah(k.total_nilai_desa)}</b>` },
+  ],
+});
+daftar("komponen", () => daftarKomponen());
+
 /* ---------- Halaman lain: diisi pada tahap berikutnya ---------- */
 const BELUM = {
-  bast:      ["Data BAST", "Tahap C4"],
-  komponen:  ["Komponen Aset KDKMP per Desa", "Tahap C4"],
   riwayat:   ["Riwayat Pengiriman dan Error Log", "Tahap C5"],
 };
 for (const [nama, [judul, tahap]] of Object.entries(BELUM)) {
