@@ -1,0 +1,4 @@
+# Dependensi untuk pengujian. Aplikasi yang berjalan tidak memerlukannya.
+-r requirements.txt
+pytest==9.2.0
+pytest-cov
